@@ -7,8 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        Pretendard: ["Pretendard"],
-        SBAggro: ["SBAggro"],
+        pretendard: ["pretendard"],
       },
     },
   },
