@@ -2,65 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: Pretendard;
-    font-weight: 100;
-    src: local("Pretendard Thin"),
-    url("./assets/fonts/Pretendard-Thin.woff2") format('woff2');
-}
+/* Line */
 
 @font-face {
-    font-family: Pretendard;
-    font-weight: 200;
-    src: local("Pretendard Extra Light"),
-    url("./assets/fonts/Pretendard-ExtraLight.woff2") format('woff2');
-}
-
-@font-face {
-    font-family: Pretendard;
-    font-weight: 300;
-    src: local("Pretendard Light"),
-    url("./assets/fonts/Pretendard-Light.woff2") format('woff2');
-}
-
-@font-face {
-    font-family: Pretendard;
-    font-weight: 400;
-    src: local("Pretendard Regular"),
-    url("./assets/fonts/Pretendard-Regular.woff2") format('woff2');
-}
-
-@font-face {
-    font-family: Pretendard;
-    font-weight: 500;
-    src: local("Pretendard Medium"),
-    url("./assets/fonts/Pretendard-Medium.woff2") format('woff2');
-}
-
-@font-face {
-    font-family: Pretendard;
-    font-weight: 600;
-    src: local("Pretendard Semi Bold"),
-    url("./assets/fonts/Pretendard-SemiBold.woff2") format('woff2');
-}
-
-@font-face {
-    font-family: Pretendard;
+    font-family: Line;
     font-weight: 700;
-    src: local("Pretendard Bold"),
-    url("./assets/fonts/Pretendard-Bold.woff2") format('woff2');
+    src: local("LINESeedKR Bd"),
+    url("./assets/fonts/LINESeedKR-Bd.woff2") format('woff2');
 }
 
 @font-face {
-    font-family: Pretendard;
-    font-weight: 800;
-    src: local("Pretendard Extra Bold"),
-    url("./assets/fonts/Pretendard-ExtraBold.woff2") format('woff2');
+    font-family: Line;
+    font-weight: 400;
+    src: local("LINESeedKR Rg"),
+    url("./assets/fonts/LINESeedKR-Rg.woff2") format('woff2');
 }
 
 @font-face {
-    font-family: Pretendard;
-    font-weight: 900;
-    src: local("Pretendard Black"),
-    url("./assets/fonts/Pretendard-Black.woff2") format('woff2');
+    font-family: Line;
+    font-weight: 100;
+    src: local("LINESeedKR Th"),
+    url("./assets/fonts/LINESeedKR-Th.woff2") format('woff2');
 }
