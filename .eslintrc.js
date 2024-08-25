@@ -38,6 +38,16 @@ module.exports = {
         'prefer-destructuring': 'off',
       },
     },
+    {
+      files: ['*.json', '*.json5', '*.jsonc'],
+      rules: {
+        '@typescript-eslint/no-unused-expressions': 'off',
+        'max-len': 'off',
+        'max-lines': 'off',
+        'quote-props': 'off',
+        'sort-keys-fix/sort-keys-fix': 'off',
+      },
+    },
   ],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
