@@ -1,7 +1,10 @@
 <script>
-  import Home from './pages/Home.svelte'
+  import Router from 'svelte-spa-router'
+  import {routes} from './router'
 </script>
 
-<main class="flex justify-center">
-  <Home />
+<main class="w-full h-full flex justify-center">
+  <div class="w-[22.5rem]">
+    <Router {routes} />
+  </div>
 </main>
