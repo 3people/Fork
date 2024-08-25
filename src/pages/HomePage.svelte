@@ -2,8 +2,12 @@
   import Logo from '../assets/icons/Logo.svelte'
   import ShotGuideCorrect from '../assets/images/ShotGuideCorrect.svelte'
   import ShotGuideWrong from '../assets/images/ShotGuideWrong.svelte'
+  import ChevronLeft from '../assets/icons/ChevronLeft.svelte'
+  import SButton from '../components/SButton.svelte'
+  import {push} from 'svelte-spa-router'
 
-  let src: any
+  let src: any | undefined = undefined
+  $: isModalOpen = !!src
 
   const onChangeInput = (event: any) => {
     if (event.target.files && event.target.files[0]) {
@@ -14,9 +18,13 @@
       reader.readAsDataURL(event.target.files[0])
     }
   }
+
+  const onClick = async () => {
+    await push(`/menu?src=${src}`)
+  }
 </script>
 
-<div class="w-[22.5rem] px-5 py-[0.875rem] flex flex-col justify-center">
+<div class="px-5 py-[0.875rem] flex flex-col justify-center">
   <div class="flex items-center justify-between">
     <Logo />
     <div>드롭다운</div>
@@ -36,11 +44,33 @@
       <span class="text-black-secondary mt-5">빛이 반사되지 않도록 주의하세요.</span>
     </div>
   </div>
-  <button class="rounded-lg bg-brand-point text-white font-bold px-20 py-4 mt-14"
-    >메뉴판 이미지 선택하기</button
-  >
-  <input on:change={onChangeInput} type="file" accept="image/*" />
-  {#if src}
-    <img {src} alt="menu" />
-  {/if}
+  <!--  TODO: file input과 버튼 어떻게 할지 생각해보기-->
+  <label class="rounded-lg bg-brand-point text-white font-bold px-20 py-4 mt-14">
+    메뉴판 이미지 선택하기
+    <input
+      on:change={onChangeInput}
+      class="invisible hidden"
+      id="file-input"
+      type="file"
+      accept="image/*"
+    />
+  </label>
 </div>
+{#if isModalOpen}
+  <!--{#if true}-->
+  <!--  TODO: 모달로 빼기-->
+  <div class="w-full h-full flex justify-center absolute top-0 left-0 bg-white">
+    <div class="w-[22.5rem] flex flex-col">
+      <div class="pl-5 flex py-3.5 gap-2">
+        <ChevronLeft />
+        <div class="font-bold h-10">이미지 선택</div>
+      </div>
+      <div class="w-[22.5rem] flex flex-col">
+        <div class="h-[33rem] flex items-center justify-center object-contain">
+          <img {src} alt="menu" />
+        </div>
+        <SButton on:click={onClick}>확인</SButton>
+      </div>
+    </div>
+  </div>
+{/if}
