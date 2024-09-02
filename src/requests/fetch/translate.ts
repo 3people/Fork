@@ -1,5 +1,3 @@
-import {config} from '../../config/api-key'
-
 /**
  * TODO: api 파일 분리
  */
@@ -10,7 +8,7 @@ export const img2Text = async (payload: any) => {
   const response = await fetch('https://api.upstage.ai/v1/document-ai/ocr', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${config.OCR_KEY}`,
+      Authorization: `Bearer ${import.meta.env.VITE_OCR_KEY}`,
     },
     body: formData,
   })
@@ -216,7 +214,7 @@ export const translate = async (payload: any) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${config.OPENAI_API_KEY}`,
+      Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
     },
     body: JSON.stringify({
       model: 'gpt-4o-mini',
