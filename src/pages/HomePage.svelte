@@ -6,12 +6,24 @@
   import SButton from '../components/SButton.svelte'
   import {push} from 'svelte-spa-router'
   import {_, locale} from 'svelte-i18n'
+  import {img2Text, translate} from '../requests/fetch/translate'
 
   let src: any | undefined = undefined
+  let imageFile: any
   $: isModalOpen = !!src
+
+  /**
+   * TODO: 함수 분리
+   */
+  const fetchImage = async () => {
+    const result = await img2Text({imageFile})
+    const answer = await translate({result})
+    return answer
+  }
 
   const onChangeInput = (event: any) => {
     if (event.target.files && event.target.files[0]) {
+      imageFile = event.target.files[0]
       const reader = new FileReader()
       reader.onload = function (event: any) {
         src = event.target.result
@@ -72,7 +84,9 @@
       </div>
       <div class="w-[22.5rem] flex flex-col">
         <div class="h-[33rem] flex items-center justify-center object-contain">
+          <!--          TODO: 다음 페이지로 빼기-->
           <img {src} alt="menu" />
+          <SButton on:click={fetchImage}>확인</SButton>
         </div>
         <SButton on:click={onClick}>확인</SButton>
       </div>
