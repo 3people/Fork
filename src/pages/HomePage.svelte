@@ -5,6 +5,7 @@
   import ChevronLeft from '../assets/icons/ChevronLeft.svelte'
   import SButton from '../components/SButton.svelte'
   import {push} from 'svelte-spa-router'
+  import {_, locale} from 'svelte-i18n'
 
   let src: any | undefined = undefined
   $: isModalOpen = !!src
@@ -22,12 +23,16 @@
   const onClick = async () => {
     await push(`/menu?src=${src}`)
   }
+
+  const setLocale = () => {
+    locale.set('en')
+  }
 </script>
 
 <div class="px-5 py-[0.875rem] flex flex-col justify-center">
   <div class="flex items-center justify-between">
     <Logo />
-    <div>드롭다운</div>
+    <button on:click={setLocale}>{$_('home.dropdown')}</button>
   </div>
   <div class="flex flex-col mt-4">
     <h1 class="font-bold text-xl">메뉴판 번역</h1>
