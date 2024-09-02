@@ -4,18 +4,16 @@ module.exports = {
     browser: true,
     node: true,
   },
-  plugins: ['@typescript-eslint'],
+  plugins: [],
   extends: ['plugin:@typescript-eslint/recommended', 'eslint:recommended', 'prettier'],
   parserOptions: {
     ecmaVersion: 2020,
-    jsx: true,
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
-    useJSXTextNode: true,
   },
   overrides: [
     {
-      files: ['.eslintrc.js'],
+      files: ['.eslintrc.cjs'],
       rules: {
         'max-lines': 'off',
         'unicorn/no-empty-file': 'off',
@@ -24,6 +22,7 @@ module.exports = {
     },
     {
       files: ['*.svelte'],
+      extends: ['plugin:svelte/recommended'],
       parser: 'svelte-eslint-parser',
       rules: {
         'no-undef-init': 'off',
