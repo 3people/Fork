@@ -33,6 +33,7 @@
     "openai": "^4.56.0",
     "svelte-spa-router": "^4.0.1",
     "svelte-i18n": "^4.0.0",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "embla-carousel-svelte": "^8.2.1"
   }
 }
