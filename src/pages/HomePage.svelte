@@ -1,95 +1,45 @@
 <script lang="ts">
-  import Logo from '../assets/icons/Logo.svelte'
-  import ShotGuideCorrect from '../assets/images/ShotGuideCorrect.svelte'
-  import ShotGuideWrong from '../assets/images/ShotGuideWrong.svelte'
-  import ChevronLeft from '../assets/icons/ChevronLeft.svelte'
-  import SButton from '../components/SButton.svelte'
-  import {push} from 'svelte-spa-router'
-  import {_, locale} from 'svelte-i18n'
-  import {img2Text, translate} from '../requests/fetch/translate'
+  import FCard from '../components/FCard.svelte'
+  import emblaCarouselSvelte from 'embla-carousel-svelte'
 
-  let src: any | undefined = undefined
-  let imageFile: any
-  $: isModalOpen = !!src
-
-  /**
-   * TODO: 함수 분리
-   */
-  const fetchImage = async () => {
-    const result = await img2Text({imageFile})
-    const answer = await translate({result})
-    return answer
-  }
-
-  const onChangeInput = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      imageFile = event.target.files[0]
-      const reader = new FileReader()
-      reader.onload = function (event: any) {
-        src = event.target.result
-      }
-      reader.readAsDataURL(event.target.files[0])
-    }
-  }
-
-  const onClick = async () => {
-    await push(`/menu?src=${src}`)
-  }
-
-  const setLocale = () => {
-    locale.set('en')
-  }
+  const items = [
+    {
+      title: '한국만의 <br /> 삼겹살 어때요?',
+      name: '삼겹살',
+      description:
+        '삼겹살은 돼지고기의 한 부위로, 살코기와 비계층이 3번 겹쳐져 있다고 해서 삼겹살이라는 이름이 붙여졌다... 더보기',
+      image: '/src/assets/images/card-sample-image-1.png',
+    },
+    {
+      title: '든든한 한끼로 <br /> 제격인 갈비탕',
+      name: '갈비탕',
+      description:
+        '대한민국의 국물 요리이자 소갈비로 만든 육탕 음식. 갈비에 고기 국물을 내어서 만든 음식으로 돼지갈비보다는... 더보기',
+      image: '/src/assets/images/card-sample-image-2.png',
+    },
+    {
+      title: '매콤 달콤 <br /> 중독적인 닭갈비',
+      name: '닭갈비',
+      description:
+        '닭고기를 고추장 양념장에 재웠다가 뜨겁게 달군 팬에 기름을 두르고 양배추, 고구마, 당근, 떡과 함께 볶아 먹는 강원도... 더보기',
+      image: '/src/assets/images/card-sample-image-3.png',
+    },
+    {
+      title: '섞어먹는 즐거움 <br /> 한국의 비빔밥',
+      name: '비빔밥',
+      description:
+        '쌀밥에 고기볶음, 갖은 나물과 고명을 올리고 고추장에 비벼 먹는 음식이다. 참기름을 첨가하면 더욱 맛있다.... 더보기',
+      image: '/src/assets/images/card-sample-image-4.png',
+    },
+  ]
 </script>
 
-<div class="px-5 py-[0.875rem] flex flex-col justify-center">
-  <div class="flex items-center justify-between">
-    <Logo />
-    <button on:click={setLocale}>{$_('home.dropdown')}</button>
-  </div>
-  <div class="flex flex-col mt-4">
-    <h1 class="font-bold text-xl">메뉴판 번역</h1>
-    <span class="text-black-secondary text-sm mt-2">번역할 메뉴판 이미지를 준비해주세요.</span>
-  </div>
-  <div class="mt-5 bg-gray-100 rounded-lg p-3 flex flex-col">
-    <div class="rounded bg-gray-200 w-fit px-2 py-1.5">
-      <span class="font-bold text-black-tertiary">이미지 촬영 가이드</span>
-    </div>
-    <div class="flex flex-col w-full items-center mt-4">
-      <ShotGuideCorrect />
-      <span class="text-black-secondary mt-5 mb-7">메뉴판이 화면에 꽉 차도록 촬영해주세요.</span>
-      <ShotGuideWrong />
-      <span class="text-black-secondary mt-5">빛이 반사되지 않도록 주의하세요.</span>
+<div class="w-full h-full px-5 py-[0.875rem] flex flex-col justify-center">
+  <div class="overflow-hidden" use:emblaCarouselSvelte>
+    <div class="flex gap-3">
+      {#each items as item}
+        <FCard {item} />
+      {/each}
     </div>
   </div>
-  <!--  TODO: file input과 버튼 어떻게 할지 생각해보기-->
-  <label class="rounded-lg bg-brand-point text-white font-bold px-20 py-4 mt-14">
-    메뉴판 이미지 선택하기
-    <input
-      on:change={onChangeInput}
-      class="invisible hidden"
-      id="file-input"
-      type="file"
-      accept="image/*"
-    />
-  </label>
 </div>
-{#if isModalOpen}
-  <!--{#if true}-->
-  <!--  TODO: 모달로 빼기-->
-  <div class="w-full h-full flex justify-center absolute top-0 left-0 bg-white">
-    <div class="w-[22.5rem] flex flex-col">
-      <div class="pl-5 flex py-3.5 gap-2">
-        <ChevronLeft />
-        <div class="font-bold h-10">이미지 선택</div>
-      </div>
-      <div class="w-[22.5rem] flex flex-col">
-        <div class="h-[33rem] flex items-center justify-center object-contain">
-          <!--          TODO: 다음 페이지로 빼기-->
-          <img {src} alt="menu" />
-          <SButton on:click={fetchImage}>확인</SButton>
-        </div>
-        <SButton on:click={onClick}>확인</SButton>
-      </div>
-    </div>
-  </div>
-{/if}
