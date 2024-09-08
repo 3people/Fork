@@ -5,7 +5,8 @@ import DetailPage from './pages/DetailPage.svelte'
 import SearchPage from './pages/SearchPage.svelte'
 
 export const routes = {
-  '/': HomePage,
+  '/': LandingPage,
+  '/home': HomePage,
   '/menu': MenuPage,
   '/translate': TranslatePage,
   '/detail': DetailPage,
