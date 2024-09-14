@@ -1,6 +1,6 @@
 <script lang="ts">
   import {querystring} from 'svelte-spa-router'
-  import {output} from '../requests/mock/mock'
+  import {output} from '../requests/mock/menu'
   import DollarSign from '../assets/icons/DollarSign.svelte'
 
   $: src = $querystring?.slice(4, $querystring?.length)
