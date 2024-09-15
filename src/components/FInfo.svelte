@@ -1,11 +1,20 @@
 <script lang="ts">
+  import type {Restaurant} from '../requests/mock/restaurant'
+
   export let type: string = '식당'
-  export let item
+  export let item: Restaurant
+  export let flow: 'vertical' | 'horizontal' = 'horizontal'
 </script>
 
-<div class="flex gap-4">
+<div class="flex gap-4 {flow === 'vertical' ? 'flex-col' : ''}">
   <div class="bg-red-200">
-    <img class="w-[5.625rem] h-[5.625rem] object-cover" src={item.image} alt={item.name} />
+    <img
+      class="{flow === 'vertical'
+        ? 'w-[11.25rem] h-[11.25rem]'
+        : 'w-[5.625rem] h-[5.625rem]'} object-cover"
+      src={item.image}
+      alt={item.name}
+    />
   </div>
   <div class="flex flex-col gap-1">
     <span class="text-brand-point font-bold text-[0.625rem]">{type}</span>
