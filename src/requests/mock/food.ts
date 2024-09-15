@@ -3,7 +3,15 @@ import Sample2 from '../../assets/images/card-sample-image-2.png'
 import Sample3 from '../../assets/images/card-sample-image-3.png'
 import Sample4 from '../../assets/images/card-sample-image-4.png'
 
-export const foods = [
+export interface Food {
+  id?: string
+  title?: string
+  name?: string
+  description?: string
+  image?: string
+}
+
+export const foods: Food[] = [
   {
     id: '0',
     title: '한국만의 <br /> 삼겹살 어때요?',
