@@ -1,5 +1,6 @@
 <script lang="ts">
   import {createEventDispatcher} from 'svelte'
+  import {clsx} from 'clsx'
 
   const dispatch = createEventDispatcher()
   const onClick = (event: any) => {
@@ -9,7 +10,7 @@
 
 <button
   {...$$props}
-  class={`w-full rounded-lg bg-brand-point text-white font-bold px-20 py-4 ${$$props.class ? ` ${$$props.class}` : ''}`}
+  class={clsx($$props.class, 'w-full rounded-lg bg-brand-point text-white font-bold px-20 py-4')}
   on:click={(event) => onClick(event)}
 >
   <slot />
