@@ -29,7 +29,7 @@
   <div class="px-5 mt-7">
     <span class="font-bold text-lg">'{food?.name}' 맛집</span>
     <div class="mt-4 flex flex-col gap-3">
-      {#each displayedRestaurants as item, index}
+      {#each displayedRestaurants as item}
         <FInfo {item} />
       {/each}
     </div>
