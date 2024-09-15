@@ -1,4 +1,11 @@
 @tailwind base;
+
+@layer base {
+  input:focus {
+    outline: none;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 
@@ -7,26 +14,20 @@
 @font-face {
   font-family: Line;
   font-weight: 700;
-  src:
-    local('LINESeedKR Bd'),
-    url('./assets/fonts/LINESeedKR-Bd.woff2')
-      format('woff2');
+  src: local('LINESeedKR Bd'),
+  url('./assets/fonts/LINESeedKR-Bd.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Line;
   font-weight: 400;
-  src:
-    local('LINESeedKR Rg'),
-    url('./assets/fonts/LINESeedKR-Rg.woff2')
-      format('woff2');
+  src: local('LINESeedKR Rg'),
+  url('./assets/fonts/LINESeedKR-Rg.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Line;
   font-weight: 100;
-  src:
-    local('LINESeedKR Th'),
-    url('./assets/fonts/LINESeedKR-Th.woff2')
-      format('woff2');
+  src: local('LINESeedKR Th'),
+  url('./assets/fonts/LINESeedKR-Th.woff2') format('woff2');
 }
