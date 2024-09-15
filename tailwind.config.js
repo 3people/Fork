@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    './index.html',
-    './src/**/*.{js,ts,svelte,html}',
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,svelte,html}'],
   theme: {
     extend: {
       fontFamily: {
@@ -15,6 +12,7 @@ export default {
           primary: '#0a0a0a',
           secondary: 'rgba(10,10,10,0.7)',
           tertiary: 'rgba(10,10,10,0.5)',
+          quaternary: 'rgba(10,10,10,0.3)',
         },
         gray: {
           100: '#fbfbfb',
