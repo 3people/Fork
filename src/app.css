@@ -31,3 +31,7 @@
   src: local('LINESeedKR Th'),
   url('./assets/fonts/LINESeedKR-Th.woff2') format('woff2');
 }
+
+html, body, #app {
+  height: 100%;
+}
