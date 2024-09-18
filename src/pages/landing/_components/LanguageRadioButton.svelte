@@ -10,7 +10,7 @@
     }
 </script>
 <button
-    class="w-full h-[3.25rem] font-bold rounded-[0.5rem] border border-gray-200 mb-[0.75rem] last:mb-0 {selected ? 'selected' : ''}"
+    class="flex items-center px-[1rem] w-full h-[3.25rem] font-bold rounded-[0.5rem] border border-gray-200 mb-[0.75rem] last:mb-0 {selected ? 'selected' : ''}"
     on:click={onClick}
     >
     <slot/>
