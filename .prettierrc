@@ -6,6 +6,6 @@
   "jsxSingleQuote": false,
   "printWidth": 100,
   "endOfLine": "lf",
-  "plugins": ["prettier-plugin-svelte"],
+  "plugins": ["prettier-plugin-svelte", "prettier"],
   "overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
 }
