@@ -5,13 +5,13 @@
   import {push} from 'svelte-spa-router'
   import FSearchInput from '../components/FSearchInput.svelte'
   import FInfo from '../components/FInfo.svelte'
-  import {restaurants} from '../requests/mock/restaurant'
+  import {fetchRestaurants} from '../requests/fetch/restaurant-list'
 
   emblaCarouselSvelte.globalOptions = {dragFree: true}
 
   const onClickCard = ({detail: foodInfo}: CustomEvent) => {
     if (foodInfo.id) {
-      push(`/detail?id=${foodInfo.id}`)
+      push(`/food?id=${foodInfo.id}`)
     }
   }
 
@@ -19,6 +19,16 @@
     if (keyword) {
       push(`/search?keyword=${keyword}`)
     }
+  }
+
+  const getRestaurants = async () => {
+    const result = await fetchRestaurants({})
+    console.log(result)
+    return result
+  }
+
+  const onClickInfo = ({detail: restaurantInfo}: CustomEvent) => {
+    push(`/restaurant?id=${restaurantInfo.contentId}`)
   }
 </script>
 
@@ -34,10 +44,12 @@
   <div class="mt-10">
     <span class="font-bold text-lg">지금 인기있는 맛집</span>
     <div class="overflow-hidden" use:emblaCarouselSvelte>
-      <div class="flex mt-4 gap-3">
-        {#each restaurants as item}
-          <FInfo {item} flow="vertical" />
-        {/each}
+      <div class="flex mt-4 gap-3 w-[11.25rem]">
+        {#await getRestaurants() then restaurants}
+          {#each restaurants as item}
+            <FInfo {item} flow="vertical" on:click={onClickInfo} />
+          {/each}
+        {/await}
       </div>
     </div>
   </div>
