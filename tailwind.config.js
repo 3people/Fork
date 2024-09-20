@@ -20,6 +20,7 @@ export default {
         },
         brand: {
           point: '#FF4A22',
+          blue: '#5398FF',
         },
       },
     },
