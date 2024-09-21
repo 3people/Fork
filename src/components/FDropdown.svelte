@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {_, locale, locales} from 'svelte-i18n'
+  import {_, locale} from 'svelte-i18n'
   import ko from '../assets/images/flag-ko.png'
   import en from '../assets/images/flag-en.png'
   import zh from '../assets/images/flag-zh.png'
