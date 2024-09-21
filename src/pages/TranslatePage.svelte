@@ -1,11 +1,9 @@
 <script lang="ts">
-  import Logo from '../assets/icons/Logo.svelte'
   import ShotGuideCorrect from '../assets/images/ShotGuideCorrect.svelte'
   import ShotGuideWrong from '../assets/images/ShotGuideWrong.svelte'
   import ChevronLeft from '../assets/icons/ChevronLeft.svelte'
   import FButton from '../components/FButton.svelte'
   import {push} from 'svelte-spa-router'
-  import {_, locale} from 'svelte-i18n'
   import {img2Text, translate} from '../requests/fetch/translate'
 
   let src: any | undefined = undefined
@@ -35,17 +33,9 @@
   const onClick = async () => {
     await push(`/menu?src=${src}`)
   }
-
-  const setLocale = () => {
-    locale.set('en')
-  }
 </script>
 
 <div class="px-5 py-[0.875rem] flex flex-col justify-center">
-  <div class="flex items-center justify-between">
-    <Logo />
-    <button on:click={setLocale}>{$_('home.dropdown')}</button>
-  </div>
   <div class="flex flex-col mt-4">
     <h1 class="font-bold text-xl">메뉴판 번역</h1>
     <span class="text-black-secondary text-sm mt-2">번역할 메뉴판 이미지를 준비해주세요.</span>
