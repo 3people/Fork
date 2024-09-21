@@ -4,7 +4,7 @@ export default {
     title: 'Welcome!',
     description: 'What language would you like to translate Korean food travel information into?',
   },
-  home: {
-    dropdown: 'dropdown',
+  header: {
+    language: 'English',
   },
 }

@@ -32,6 +32,13 @@
   url('./assets/fonts/LINESeedKR-Th.woff2') format('woff2');
 }
 
+/* HS-Santokki */
+
+@font-face {
+  font-family: Santokki;
+  src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/HS-Regular.woff') format('woff');
+}
+
 html, body, #app {
   height: 100%;
 }

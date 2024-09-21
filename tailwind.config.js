@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        pretendard: ['pretendard'],
         line: ['line'],
+        santokki: ['santokki'],
       },
       colors: {
         black: {

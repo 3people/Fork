@@ -32,7 +32,7 @@
   }
 </script>
 
-<div class="w-full h-full px-5 py-[0.875rem] flex flex-col justify-center">
+<div class="w-full px-5 py-4 flex flex-col justify-center">
   <div class="embla overflow-hidden" use:emblaCarouselSvelte>
     <div class="flex gap-3">
       {#each foods as item}
