@@ -2,10 +2,16 @@
   import {clsx} from 'clsx'
   import MagnifyingGlass from '../assets/icons/MagnifyingGlass.svelte'
   import {createEventDispatcher} from 'svelte'
+  import {_} from 'svelte-i18n'
 
   const dispatch = createEventDispatcher()
 
-  let value = ''
+  export let value: string = ''
+  $: if (value) {
+    focused = true
+  }
+
+  let inputValue = value
   let focused = false
 
   const onFocus = () => {
@@ -19,8 +25,13 @@
   const onEnter = (event: KeyboardEvent) => {
     const key = event.key
     if (key === 'Enter') {
-      dispatch('enter', value)
+      dispatch('enter', inputValue)
     }
+  }
+
+  const onInput = (event: any) => {
+    inputValue = (event.target as HTMLInputElement).value
+    dispatch('input', inputValue)
   }
 </script>
 
@@ -33,13 +44,14 @@
 >
   <MagnifyingGlass />
   <input
-    bind:value
+    bind:value={inputValue}
     on:focus={onFocus}
     on:blur={onBlur}
     on:keydown={onEnter}
+    on:input={onInput}
     class={`w-full text-base ${focused ? 'text-black' : 'text-black-quaternary'}`}
     type="text"
     id="input"
-    placeholder="한국 음식, 식당을 검색해보세요"
+    placeholder={$_('search.placeholder')}
   />
 </div>
