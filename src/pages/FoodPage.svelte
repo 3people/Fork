@@ -6,6 +6,7 @@
   import FInfo from '../components/FInfo.svelte'
   import {restaurants} from '../requests/mock/restaurant'
   import FButton from '../components/FButton.svelte'
+  import {_} from 'svelte-i18n'
 
   const food = foods.find((food) => food.id === parseQueryString($querystring ?? '').id)
 
@@ -18,16 +19,22 @@
 </script>
 
 <div class="w-full h-full flex flex-col">
-  <img class="w-[22.5rem] h-[22.5rem] object-cover" src={food?.image} alt={food?.name} />
+  <img
+    class="w-[22.5rem] h-[22.5rem] object-cover"
+    src={food?.image}
+    alt={$_(`food.card.${food?.id}.name`)}
+  />
   <div class="flex flex-col mt-6 gap-2 px-5">
-    <span class="text-brand-point text-xs font-bold">{food?.name}</span>
-    <span class="font-bold text-xl">{food?.name}</span>
-    <span class="text-lg text-black-tertiary">{food?.name}</span>
-    <p class="text-sm text-black-secondary mb-[3.5rem]">{food?.description}</p>
+    <span class="text-brand-point text-xs font-bold">{food?.category}</span>
+    <span class="font-bold text-xl">{$_(`food.card.${food?.id}.name`)}</span>
+    <span class="text-base text-black-tertiary">{food?.pronounce}</span>
+    <p class="text-sm text-black-secondary mb-[3.5rem]">
+      {$_(`food.card.${food?.id}.description`)}
+    </p>
   </div>
   <FBar />
   <div class="px-5 mt-7">
-    <span class="font-bold text-lg">'{food?.name}' 맛집</span>
+    <span class="font-bold text-lg">'{$_(`food.card.${food?.id}.name`)}' {$_(`food.popular`)}</span>
     <div class="mt-4 flex flex-col gap-3">
       {#each displayedRestaurants as item}
         <FInfo {item} />

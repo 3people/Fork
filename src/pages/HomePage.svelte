@@ -6,6 +6,7 @@
   import FSearchInput from '../components/FSearchInput.svelte'
   import FInfo from '../components/FInfo.svelte'
   import {fetchRestaurants} from '../requests/fetch/restaurant-list'
+  import {_} from 'svelte-i18n'
 
   emblaCarouselSvelte.globalOptions = {dragFree: true}
 
@@ -23,7 +24,6 @@
 
   const getRestaurants = async () => {
     const result = await fetchRestaurants({})
-    console.log(result)
     return result
   }
 
@@ -42,7 +42,7 @@
   </div>
   <FSearchInput class="mt-10" on:enter={onEnter} />
   <div class="mt-10">
-    <span class="font-bold text-lg">지금 인기있는 맛집</span>
+    <span class="font-bold text-lg">{$_('home.popular')}</span>
     <div class="overflow-hidden" use:emblaCarouselSvelte>
       <div class="flex mt-4 gap-3 w-[11.25rem]">
         {#await getRestaurants() then restaurants}
