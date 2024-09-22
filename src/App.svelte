@@ -7,8 +7,8 @@
 
 <!-- eslint-disable no-unused-vars -->
 {#await setup() then setup}
-  <main class="w-full h-full flex justify-center">
-    <div class="w-[22.5rem] h-full mt-12">
+  <main class="w-full h-full flex justify-center overflow-hidden">
+    <div class="w-[22.5rem] h-full mt-12 overflow-auto scrollbar-hide">
       <FHeader />
       <Router {routes} />
     </div>

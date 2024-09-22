@@ -11,6 +11,7 @@
     "format": "prettier --write --plugin prettier-plugin-svelte src/**/*.svelte"
   },
   "devDependencies": {
+    "tailwind-scrollbar-hide": "^1.1.7",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@tsconfig/svelte": "^5.0.4",
     "autoprefixer": "^10.4.19",
