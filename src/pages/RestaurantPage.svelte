@@ -1,5 +1,4 @@
 <script lang="ts">
-  import {restaurants} from '../requests/mock/restaurant'
   import {querystring} from 'svelte-spa-router'
   import {parseQueryString} from '../utils/url'
   import Location from '../assets/icons/Location.svelte'
@@ -15,21 +14,28 @@
     RestaurantCommonInfo,
     RestaurantDetailInfo,
   } from '../requests/normalize/restaurant-info'
+  import FBar from '../components/FBar.svelte'
+  import {locale} from 'svelte-i18n'
+  import type {Language} from '../locale/types'
 
   let id = parseQueryString($querystring ?? '').id
   let detailInfo: RestaurantDetailInfo
   let commonInfo: RestaurantCommonInfo
 
   onMount(async () => {
-    const result = await fetchRestaurantDetailInfo({contentId: id})
-    const result2 = await fetchRestaurantCommonInfo({contentId: id})
+    const params = {
+      contentId: id,
+      locale: $locale as Language,
+      contentTypeId: $locale === 'ko' ? '39' : '82',
+    }
+    const result = await fetchRestaurantDetailInfo(params)
+    const result2 = await fetchRestaurantCommonInfo(params)
     detailInfo = result
     commonInfo = result2
-    console.log(detailInfo, commonInfo)
   })
 
   const onClickCopy = () => {
-    let textToCopy = commonInfo.firstAddress
+    let textToCopy = commonInfo.firstAddress ?? ''
     navigator.clipboard
       .writeText(textToCopy)
       .then(() => {
@@ -42,27 +48,33 @@
 </script>
 
 {#if commonInfo && detailInfo}
-  <div class="flex flex-col pt-12">
+  <div class="flex flex-col">
     <img
       src={commonInfo.firstImage}
       class="w-[22.5rem] h-[22.5rem] object-cover"
       alt={commonInfo.title}
     />
-    <div class="flex flex-col mt-6 px-5">
-      <span class="text-brand-point font-bold text-xs mb-2">{commonInfo.title}</span>
+    <div class="flex flex-col mt-6 px-5 mb-14">
+      <!--      TODO: 분류-->
+      <!--      <span class="text-brand-point font-bold text-xs mb-2">{commonInfo.title}</span>-->
       <span class="font-bold text-xl mb-4">{commonInfo.title}</span>
       <div class="flex flex-col gap-2">
-        <div class="flex gap-2 items-center">
+        <div class="flex items-start">
           <Location />
-          <span class="text-black-secondary text-sm">{commonInfo.firstAddress}</span>
-          <button class="text-brand-blue text-sm" on:click={onClickCopy}>복사</button>
+          <span class="basis-60 ml-2 text-black-secondary text-sm">{commonInfo.firstAddress}</span>
+          <button
+            class="flex-shrink-0 text-brand-blue text-sm whitespace-nowrap ml-1"
+            on:click={onClickCopy}
+          >
+            복사
+          </button>
         </div>
-        <div class="flex gap-2 items-center">
+        <div class="flex items-center">
           <Phone />
-          <span class="text-black-secondary text-sm">{commonInfo.phoneNumber}</span>
+          <span class="ml-2 text-black-secondary text-sm">{commonInfo.phoneNumber}</span>
         </div>
-        <div class="flex gap-2 items-center">
-          <Watch />
+        <div class="flex items-start">
+          <Watch class="mr-2 flex-shrink-0" />
           <div class="flex flex-col">
             <span class="text-black-secondary text-sm">{@html detailInfo.openTime}</span>
           </div>
@@ -73,5 +85,6 @@
         </div>
       </div>
     </div>
+    <FBar />
   </div>
 {/if}

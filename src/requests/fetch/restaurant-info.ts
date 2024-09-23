@@ -2,11 +2,14 @@ import {
   normalizeRestaurantCommonInfo,
   normalizeRestaurantDetailInfo,
 } from '../normalize/restaurant-info'
+import type {Language} from '../../locale/types'
+import {locale} from 'svelte-i18n'
 
 /**
  * TODO: 공통 타입 묶기
  */
 export interface RestaurantCommonInfoPayload {
+  locale?: Language
   os?: string
   serviceName?: string
   responseType?: string
@@ -20,6 +23,7 @@ export interface RestaurantCommonInfoPayload {
 }
 
 export interface RestaurantDetailInfoPayload {
+  locale?: Language
   os?: string
   serviceName?: string
   responseType?: string
@@ -28,13 +32,33 @@ export interface RestaurantDetailInfoPayload {
   serviceKey?: string
 }
 
+const urlListByLocale: any = {
+  ko: {
+    common: 'https://apis.data.go.kr/B551011/KorService1/detailCommon1?',
+    detail: 'https://apis.data.go.kr/B551011/KorService1/detailIntro1?',
+  },
+  en: {
+    common: 'https://apis.data.go.kr/B551011/EngService1/detailCommon1?',
+    detail: 'https://apis.data.go.kr/B551011/EngService1/detailIntro1?',
+  },
+  ja: {
+    common: 'https://apis.data.go.kr/B551011/JpnService1/detailCommon1?',
+    detail: 'https://apis.data.go.kr/B551011/JpnService1/detailIntro1?',
+  },
+  zh: {
+    common: 'https://apis.data.go.kr/B551011/ChtService1/detailCommon1?',
+    detail: 'https://apis.data.go.kr/B551011/ChtService1/detailIntro1?',
+  },
+}
+
 export const fetchRestaurantCommonInfo = async (payload: RestaurantCommonInfoPayload) => {
   const {
+    locale = 'ko',
     os = 'ETC',
     serviceName = 'Fork',
     responseType = 'json',
     contentId,
-    contentTypeId = '39',
+    contentTypeId = locale === 'ko' ? '39' : '82',
     defaultInfo = 'Y',
     imageInfo = 'Y',
     addressInfo = 'Y',
@@ -54,9 +78,9 @@ export const fetchRestaurantCommonInfo = async (payload: RestaurantCommonInfoPay
     overviewYN: overviewInfo,
     serviceKey,
   }
+
   const response = await fetch(
-    'https://apis.data.go.kr/B551011/KorService1/detailCommon1?' +
-      new URLSearchParams(params).toString(),
+    urlListByLocale[locale].common + new URLSearchParams(params).toString(),
     {
       method: 'GET',
     },
@@ -69,11 +93,12 @@ export const fetchRestaurantCommonInfo = async (payload: RestaurantCommonInfoPay
 
 export const fetchRestaurantDetailInfo = async (payload: RestaurantDetailInfoPayload) => {
   const {
+    locale = 'ko',
     os = 'ETC',
     serviceName = 'Fork',
     responseType = 'json',
     contentId,
-    contentTypeId = '39',
+    contentTypeId = locale === 'ko' ? '39' : '82',
     serviceKey = import.meta.env.VITE_GG_KEY,
   } = payload
 
@@ -86,8 +111,7 @@ export const fetchRestaurantDetailInfo = async (payload: RestaurantDetailInfoPay
     serviceKey,
   }
   const response = await fetch(
-    'https://apis.data.go.kr/B551011/KorService1/detailIntro1?' +
-      new URLSearchParams(params).toString(),
+    urlListByLocale[locale].detail + new URLSearchParams(params).toString(),
     {
       method: 'GET',
     },

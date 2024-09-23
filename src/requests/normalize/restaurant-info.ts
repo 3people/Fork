@@ -20,23 +20,23 @@ export interface RestaurantDetailInfoRaw {
 }
 
 export interface RestaurantDetailInfo {
-  creditCardAvailable: string
-  contentId: string
-  contentTypeId: string
-  discountInfo: string
-  firstMenu: string
-  phoneNumber: string
-  kidsFacility: string
-  lcsNo: string
-  openDate: string
-  openTime: string
-  packing: string
-  reservation: string
-  dayOff: string
-  scale: string
-  seat: string
-  smoking: string
-  offeredMenu: string
+  creditCardAvailable?: string
+  contentId?: string
+  contentTypeId?: string
+  discountInfo?: string
+  firstMenu?: string
+  phoneNumber?: string
+  kidsFacility?: string
+  lcsNo?: string
+  openDate?: string
+  openTime?: string
+  packing?: string
+  reservation?: string
+  dayOff?: string
+  scale?: string
+  seat?: string
+  smoking?: string
+  offeredMenu?: string
 }
 
 export interface RestaurantCommonInfoRaw {
@@ -59,22 +59,22 @@ export interface RestaurantCommonInfoRaw {
 }
 
 export interface RestaurantCommonInfo {
-  firstAddress: string
-  secondAddress: string
-  bookTour: string
-  contentId: string
-  contentTypeId: string
-  copyrightCode: string
-  createdTime: string
-  firstImage: string
-  secondImage: string
-  homepage: string
-  modifiedTime: string
-  overview: string
-  phoneNumber: string
-  phoneNumberName: string
-  title: string
-  zipCode: string
+  firstAddress?: string
+  secondAddress?: string
+  bookTour?: string
+  contentId?: string
+  contentTypeId?: string
+  copyrightCode?: string
+  createdTime?: string
+  firstImage?: string
+  secondImage?: string
+  homepage?: string
+  modifiedTime?: string
+  overview?: string
+  phoneNumber?: string
+  phoneNumberName?: string
+  title?: string
+  zipCode?: string
 }
 
 export const normalizeRestaurantDetailInfo = (

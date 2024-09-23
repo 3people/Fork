@@ -1,10 +1,10 @@
 export interface Restaurant {
-  id: string
-  name: string
-  address: string
-  hours: string
-  description: string
-  image: string
+  id?: string
+  name?: string
+  address?: string
+  hours?: string
+  description?: string
+  image?: string
 }
 
 export const restaurants: Restaurant[] = [
@@ -87,5 +87,58 @@ export const restaurants: Restaurant[] = [
     hours: '맛집 10 영업시간',
     description: '맛집 10 설명',
     image: '맛집 10 이미지',
+  },
+]
+
+export const restaurantMock: any[] = [
+  {
+    contentId: '2642538',
+    relation: {
+      ko: '2642538',
+      en: '2668810',
+      ja: '2668815',
+      zh: '2669295',
+    },
+    firstImage: 'http://tong.visitkorea.or.kr/cms/resource/47/3108647_image2_1.jpg',
+  },
+  {
+    contentId: '2653655',
+    relation: {
+      ko: '2653655',
+      en: '2658834',
+      ja: '2665544',
+      zh: '2665546',
+    },
+    firstImage: 'http://tong.visitkorea.or.kr/cms/resource/70/2655170_image2_1.jpg',
+  },
+  {
+    contentId: '2653639',
+    relation: {
+      ko: '2653639',
+      en: '2659750',
+      ja: '2665324',
+      zh: '2665329',
+    },
+    firstImage: 'http://tong.visitkorea.or.kr/cms/resource/86/3108586_image2_1.jpg',
+  },
+  {
+    contentId: '2653722',
+    relation: {
+      ko: '2653722',
+      en: '2659081',
+      ja: '2668530',
+      zh: '2667649',
+    },
+    firstImage: 'http://tong.visitkorea.or.kr/cms/resource/21/2655221_image2_1.jpg',
+  },
+  {
+    contentId: '2654056',
+    relation: {
+      ko: '2654056',
+      en: '2659143',
+      ja: '2666317',
+      zh: '2666319',
+    },
+    firstImage: 'http://tong.visitkorea.or.kr/cms/resource/45/2655245_image2_1.jpg',
   },
 ]
