@@ -1,16 +1,18 @@
 <script lang="ts">
-  import {querystring} from 'svelte-spa-router'
+  import {push, querystring} from 'svelte-spa-router'
   import {parseQueryString} from '../utils/url'
   import FSearchInput from '../components/FSearchInput.svelte'
   import ForkLogo from '../assets/icons/ForkLogo.svelte'
   import {fetchKeywordSearch} from '../requests/fetch/search'
   import FInfo from '../components/FInfo.svelte'
+  import {locale} from 'svelte-i18n'
+  import type {Language} from '../locale/types'
 
   let searchResult: any = []
   $: keyword = parseQueryString($querystring ?? '')?.keyword
 
   const getSearchResult = async () => {
-    const result = await fetchKeywordSearch({keyword})
+    const result = await fetchKeywordSearch({keyword, locale: $locale as Language})
     searchResult = result
   }
 
@@ -21,6 +23,10 @@
   const onInput = async ({detail: value}: CustomEvent) => {
     keyword = value
   }
+
+  const onClickInfo = ({detail: restaurantInfo}: CustomEvent) => {
+    push(`/restaurant?id=${restaurantInfo.contentId}`)
+  }
 </script>
 
 <div class="mt-4">
@@ -30,7 +36,7 @@
       <span class="font-bold text-lg mb-4">'{keyword}' 식당</span>
       <div class="flex flex-col gap-3">
         {#each searchResult as item}
-          <FInfo {item} />
+          <FInfo {item} on:click={onClickInfo} />
         {/each}
       </div>
     </div>
