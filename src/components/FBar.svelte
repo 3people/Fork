@@ -1,1 +1,1 @@
-<div class="w-full h-2.5 bg-[#EFEFEF]"></div>
+<div class="w-full flex-shrink-0 h-2.5 bg-[#EFEFEF]"></div>
