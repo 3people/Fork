@@ -29,7 +29,7 @@
   />
   <div class="flex flex-col gap-1 text-left">
     <span class="text-brand-point font-bold text-[0.625rem]">{type}</span>
-    {#if $location === '/search'}
+    {#if ['/search', '/food'].includes($location)}
       <span class="font-bold text-base">{item.title}</span>
       <span class="text-xs text-black-tertiary">{@html item.openTime}</span>
       <span class="text-xs text-black-secondary">{item.firstMenu}</span>

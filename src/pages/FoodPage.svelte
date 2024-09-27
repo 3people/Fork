@@ -4,23 +4,45 @@
   import {parseQueryString} from '../utils/url'
   import FBar from '../components/FBar.svelte'
   import FInfo from '../components/FInfo.svelte'
-  import {restaurantMock} from '../requests/mock/restaurant'
-  // import FButton from '../components/FButton.svelte'
-  import {_} from 'svelte-i18n'
+  import FButton from '../components/FButton.svelte'
+  import {_, locale} from 'svelte-i18n'
+  import {fetchKeywordSearch} from '../requests/fetch/search'
+  import type {Language} from '../locale/types'
+  import {onMount} from 'svelte'
+  import {food539} from '../locale/ko'
+  import type {
+    RestaurantCommonInfo,
+    RestaurantDetailInfo,
+  } from '../requests/normalize/restaurant-info'
 
   const food = foods.find((food) => food.id === parseQueryString($querystring ?? '').id)
 
-  // let showAll = false
-  // $: displayedRestaurants = showAll ? restaurants : restaurants.slice(0, 5)
+  let showAll = false
+  let restaurants: (RestaurantCommonInfo & RestaurantDetailInfo)[] = []
 
-  // const handleShowAll = () => {
-  //   showAll = true
-  // }
+  $: displayedRestaurants = showAll ? restaurants : restaurants.slice(0, 5)
+
+  const getSearchResult = async () => {
+    const result = await fetchKeywordSearch({
+      keyword: food539.name,
+      locale: $locale as Language,
+      row: '10',
+    })
+    restaurants = result ?? []
+  }
+
+  const handleShowAll = () => {
+    showAll = !showAll
+  }
+
+  onMount(async () => {
+    await getSearchResult()
+  })
 </script>
 
 <div class="w-full h-full flex flex-col">
   <img
-    class="w-[22.5rem] h-[22.5rem] object-cover"
+    class="w-full h-[22.5rem] object-cover"
     src={food?.image}
     alt={$_(`food.card.${food?.id}.name`)}
   />
@@ -33,13 +55,13 @@
     </p>
   </div>
   <FBar />
-  <div class="px-5 mt-7">
+  <div class="px-5 mt-7 pb-12">
     <span class="font-bold text-lg">'{$_(`food.card.${food?.id}.name`)}' {$_(`food.popular`)}</span>
     <div class="mt-4 flex flex-col gap-3">
-      {#each restaurantMock as item}
+      {#each displayedRestaurants as item}
         <FInfo {item} />
       {/each}
     </div>
-    <!--    <FButton class="mt-7" on:click={handleShowAll}>더보기</FButton>-->
+    <FButton class="mt-7 mb-5" on:click={handleShowAll}>더보기</FButton>
   </div>
 </div>
