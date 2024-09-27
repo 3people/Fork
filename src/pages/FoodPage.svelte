@@ -9,13 +9,14 @@
   import {fetchKeywordSearch} from '../requests/fetch/search'
   import type {Language} from '../locale/types'
   import {onMount} from 'svelte'
-  import {food539} from '../locale/ko'
   import type {
     RestaurantCommonInfo,
     RestaurantDetailInfo,
   } from '../requests/normalize/restaurant-info'
+  import {foodMock} from '../requests/mock/food-mock'
 
-  const food = foods.find((food) => food.id === parseQueryString($querystring ?? '').id)
+  const queryFoodId = parseQueryString($querystring ?? '').id
+  const food = foods.find((food) => food.id === queryFoodId)
 
   let showAll = false
   let restaurants: (RestaurantCommonInfo & RestaurantDetailInfo)[] = []
@@ -24,7 +25,7 @@
 
   const getSearchResult = async () => {
     const result = await fetchKeywordSearch({
-      keyword: food539.name,
+      keyword: foodMock.filter((food) => queryFoodId === String(food.id))[0].name,
       locale: $locale as Language,
       row: '10',
     })
