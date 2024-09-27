@@ -48,10 +48,10 @@
 </script>
 
 {#if commonInfo && detailInfo}
-  <div class="flex flex-col">
+  <div class="w-full flex flex-col">
     <img
       src={commonInfo.firstImage}
-      class="w-[22.5rem] h-[22.5rem] object-cover"
+      class="w-full h-[22.5rem] object-cover"
       alt={commonInfo.title}
     />
     <div class="flex flex-col mt-6 px-5 mb-14">
