@@ -10,7 +10,10 @@
 
 <button
   {...$$props}
-  class={clsx($$props.class, 'w-full rounded-lg bg-brand-point text-white font-bold px-20 py-4')}
+  class={clsx(
+    $$props.class,
+    'w-full py-4 rounded-lg bg-brand-point text-white text-base font-bold flex justify-center items-center',
+  )}
   on:click={(event) => onClick(event)}
 >
   <slot />
