@@ -5,9 +5,12 @@
   import {_} from 'svelte-i18n'
   import {clsx} from 'clsx'
   import ChevronLeft from '../assets/icons/ChevronLeft.svelte'
+  import {imageStore} from '../store/image'
+  import Loading from '../assets/images/loading.gif'
 
   $: displayDropdown = !['/', '/restaurant'].includes($location)
   $: displayBackButton = !['/home', '/landing'].includes($location)
+  $: headerText = $location === '/translate-progress' ? '이미지 선택' : ''
 
   const onClickBackButton = () => {
     pop()
@@ -21,9 +24,12 @@
     $$restProps.class,
   )}
 >
-  {#if displayBackButton}
-    <button class="cursor-pointer" on:click={onClickBackButton}>
+  {#if $imageStore.isLoading}
+    <img class="w-[4.5rem]" src={Loading} alt="loading" />
+  {:else if displayBackButton}
+    <button class="cursor-pointer flex items-center" on:click={onClickBackButton}>
       <ChevronLeft />
+      <span class="ml-2 font-bold text-base">{headerText}</span>
     </button>
   {:else}
     <div class="flex gap-0.5 items-center">
