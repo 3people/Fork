@@ -1,7 +1,6 @@
 <script lang="ts">
   import {querystring} from 'svelte-spa-router'
   import {output} from '../requests/mock/menu_mock'
-  import DollarSign from '../assets/icons/DollarSign.svelte'
   import FMenu from '../components/FMenu.svelte'
 
   $: src = $querystring?.slice(4, $querystring?.length)

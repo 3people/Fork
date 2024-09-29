@@ -131,6 +131,7 @@
       </div>
       <div class="flex flex-col mt-6 gap-3">
         {#await asyncTest()}
+          <!-- eslint-disable no-unused-vars -->
           {#each Array(5) as _}
             <FSkeleton />
           {/each}
