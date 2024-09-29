@@ -8,20 +8,13 @@
   import {_, locale} from 'svelte-i18n'
   import {fetchKeywordSearch} from '../requests/fetch/search'
   import type {Language} from '../locale/types'
-  import {onMount} from 'svelte'
-  import type {
-    RestaurantCommonInfo,
-    RestaurantDetailInfo,
-  } from '../requests/normalize/restaurant-info'
   import {foodMock} from '../requests/mock/food-mock'
+  import FSkeleton from '../components/FSkeleton.svelte'
 
   const queryFoodId = parseQueryString($querystring ?? '').id
   const food = foods.find((food) => food.id === queryFoodId)
 
   let showAll = false
-  let restaurants: (RestaurantCommonInfo & RestaurantDetailInfo)[] = []
-
-  $: displayedRestaurants = showAll ? restaurants : restaurants.slice(0, 5)
 
   const getSearchResult = async () => {
     const result = await fetchKeywordSearch({
@@ -29,16 +22,12 @@
       locale: $locale as Language,
       row: '10',
     })
-    restaurants = result ?? []
+    return result ?? []
   }
 
   const handleShowAll = () => {
     showAll = !showAll
   }
-
-  onMount(async () => {
-    await getSearchResult()
-  })
 </script>
 
 <div class="w-full h-full flex flex-col">
@@ -59,9 +48,15 @@
   <div class="px-5 mt-7 pb-12">
     <span class="font-bold text-lg">'{$_(`food.card.${food?.id}.name`)}' {$_(`food.popular`)}</span>
     <div class="mt-4 flex flex-col gap-3">
-      {#each displayedRestaurants as item}
-        <FInfo {item} />
-      {/each}
+      {#await getSearchResult()}
+        {#each Array(5) as _}
+          <FSkeleton />
+        {/each}
+      {:then restaurants}
+        {#each showAll ? restaurants : restaurants.slice(0, 5) as item}
+          <FInfo {item} />
+        {/each}
+      {/await}
     </div>
     <FButton class="mt-7 mb-5" on:click={handleShowAll}>더보기</FButton>
   </div>
