@@ -35,7 +35,7 @@
   }
 </script>
 
-<div class="px-5 py-[0.875rem] flex flex-col justify-center">
+<div class="w-full px-5 py-[0.875rem] flex flex-col justify-center">
   <div class="flex flex-col mt-4">
     <h1 class="font-bold text-xl">메뉴판 번역</h1>
     <span class="text-black-secondary text-sm mt-2">번역할 메뉴판 이미지를 준비해주세요.</span>
@@ -52,7 +52,7 @@
     </div>
   </div>
   <!--  TODO: file input과 버튼 어떻게 할지 생각해보기-->
-  <label class="rounded-lg bg-brand-point text-white font-bold px-20 py-4 mt-14">
+  <label class="rounded-lg bg-brand-point text-center text-white font-bold px-20 py-4 mt-14">
     메뉴판 이미지 선택하기
     <input
       on:change={onChangeInput}
