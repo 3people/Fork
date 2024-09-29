@@ -1,22 +1,26 @@
 <script lang="ts">
-  import {querystring} from 'svelte-spa-router'
-  import {output} from '../requests/mock/menu_mock'
   import FMenu from '../components/FMenu.svelte'
-
-  $: src = $querystring?.slice(4, $querystring?.length)
+  import {imageStore} from '../store/image'
+  import FSkeleton from '../components/FSkeleton.svelte'
 </script>
 
-<div class="mx-5">
-  <div class="object-contain">
-    <img {src} class="rounded-xl" alt="menu" />
-  </div>
-  <div class="mt-4">
-    <div class="bg-gray-200 rounded-lg p-3">
-      <span class="font-bold">{output.title}</span>
-    </div>
+<div class="w-full px-5 mt-4 mb-16">
+  <img src={$imageStore.src} class="rounded-xl w-full h-[7.5rem] object-cover" alt="menu" />
+  <div class="w-full mt-4">
     <h1 class="font-bold text-xl mt-6">메뉴</h1>
-    {#each output.menuList as item}
-      <FMenu {item} />
-    {/each}
+    <div class="flex flex-col w-full gap-3 mt-5">
+      {#await imageStore.translateMenu()}
+        {#each Array(5) as _}
+          <FSkeleton />
+        {/each}
+      {:then result}
+        <div class="bg-gray-200 rounded-lg p-3">
+          <span class="font-bold">{result.title}</span>
+        </div>
+        {#each result.menuList as item}
+          <FMenu {item} />
+        {/each}
+      {/await}
+    </div>
   </div>
 </div>
