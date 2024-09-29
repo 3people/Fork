@@ -2,6 +2,7 @@
   import {createEventDispatcher} from 'svelte'
   import {_, locale} from 'svelte-i18n'
   import {location} from 'svelte-spa-router'
+  import FImg from './FImg.svelte'
 
   export let type: string = '식당'
   export let item: any
@@ -20,7 +21,7 @@
   class="flex gap-4 flex-[0_0_100%] {flow === 'vertical' ? 'flex-col' : ''}"
   on:click={onClick}
 >
-  <img
+  <FImg
     class="{flow === 'vertical'
       ? 'w-[11.25rem] h-[11.25rem]'
       : 'w-[5.625rem] h-[5.625rem]'} object-cover rounded-lg"
