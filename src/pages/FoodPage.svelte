@@ -49,6 +49,7 @@
     <span class="font-bold text-lg">'{$_(`food.card.${food?.id}.name`)}' {$_(`food.popular`)}</span>
     <div class="mt-4 flex flex-col gap-3">
       {#await getSearchResult()}
+        <!-- eslint-disable no-unused-vars -->
         {#each Array(5) as _}
           <FSkeleton />
         {/each}
