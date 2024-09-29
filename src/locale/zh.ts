@@ -40,6 +40,10 @@ export default {
         firstMenu: '燉牛排骨套餐',
       },
     },
+    translate: {
+      first: '選單',
+      second: '翻譯',
+    },
   },
   food: {
     card: {

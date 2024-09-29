@@ -8,6 +8,7 @@
   // import {fetchRestaurants} from '../requests/fetch/restaurant-list'
   import {_} from 'svelte-i18n'
   import {restaurantMock} from '../requests/mock/restaurant'
+  import Camera from '../assets/icons/Camera.svelte'
 
   emblaCarouselSvelte.globalOptions = {dragFree: true}
 
@@ -31,9 +32,13 @@
   const onClickInfo = ({detail: restaurantInfo}: CustomEvent) => {
     push(`/restaurant?id=${restaurantInfo.contentId}`)
   }
+
+  const onRouteTranslate = () => {
+    push('/translate')
+  }
 </script>
 
-<div class="w-full px-5 py-4 flex flex-col justify-center">
+<div class="w-full px-5 py-4 flex flex-col justify-center relative">
   <FSearchInput on:enter={onEnter} />
   <div class="embla overflow-hidden mt-8" use:emblaCarouselSvelte>
     <div class="flex gap-3">
@@ -57,4 +62,14 @@
       </div>
     </div>
   </div>
+  <button
+    class="fixed bg-brand-point w-[4.5rem] h-[4.5rem] rounded-full bottom-0 right-0 mr-4 mb-4 flex justify-center items-center flex-col"
+    on:click={onRouteTranslate}
+  >
+    <Camera />
+    <div class="flex flex-col text-white text-[9px] text-center">
+      <span>{$_('home.translate.first')}</span>
+      <span>{$_('home.translate.second')}</span>
+    </div>
+  </button>
 </div>

@@ -40,6 +40,10 @@ export default {
         firstMenu: 'カルビの蒸し物定食',
       },
     },
+    translate: {
+      first: 'メニュー',
+      second: '翻訳',
+    },
   },
   food: {
     card: {

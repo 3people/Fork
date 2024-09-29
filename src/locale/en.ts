@@ -40,6 +40,10 @@ export default {
         firstMenu: 'Braised Short Rib Set Menu',
       },
     },
+    translate: {
+      first: 'Menu',
+      second: 'translate',
+    },
   },
   food: {
     card: {

@@ -19,7 +19,7 @@ export default {
     popular: '지금 인기있는 맛집',
     info: {
       2642538: {
-        title: '삼겹살전문점대통령',
+        title: '은앤정명동닭갈비',
         openTime: '11:00-22:30',
         firstMenu: '치즈닭갈비',
       },
@@ -44,6 +44,10 @@ export default {
           '평일 10:00-22:00(브레이크타임 15:00-17:00 / 라스트오더 21:30)/ 주말 10:00-21:00(브레이크타임 15:00-17:00)',
         firstMenu: '갈비찜정식',
       },
+    },
+    translate: {
+      first: '메뉴판',
+      second: '번역',
     },
   },
   food: {
