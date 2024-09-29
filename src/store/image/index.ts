@@ -1,5 +1,5 @@
 import {derived, get, writable} from 'svelte/store'
-import {img2Text, translate} from '../requests/fetch/translate'
+import {img2Text, translate} from '../../requests/fetch/translate'
 
 export const createImageStore = () => {
   const srcStore = writable('')
@@ -21,7 +21,6 @@ export const createImageStore = () => {
     const answer = await translate({result})
     translatedMenuStore.set(answer)
     isLoadingStore.set(false)
-    console.log(answer)
     return answer
   }
 
