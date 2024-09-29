@@ -10,6 +10,7 @@
     <h1 class="font-bold text-xl mt-6">메뉴</h1>
     <div class="flex flex-col w-full gap-3 mt-5">
       {#await imageStore.translateMenu()}
+        <!-- eslint-disable no-unused-vars -->
         {#each Array(5) as _}
           <FSkeleton />
         {/each}
