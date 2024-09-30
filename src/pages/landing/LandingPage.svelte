@@ -15,9 +15,14 @@
   }
 
   onMount(() => {
+    const metaTag = document.querySelector('meta[name="theme-color"]')
+    console.log(metaTag)
+    metaTag?.setAttribute("content", "#FF4A22");
+
     locale.set('ko')
     const timeout = setTimeout(() => {
       showSplash = false
+      metaTag?.setAttribute("content", "#FFFFFF");
     }, SPLASH_TIME)
     return () => clearTimeout(timeout)
   })
@@ -29,7 +34,7 @@
   </div>
 {/if}
 <!-- todo: add logo header -->
-<div class="flex flex-col w-full h-full px-5 pb-12">
+<div class="flex flex-col w-full h-full px-5 pb-12 bg-white">
   <div class="mt-[1.5rem]">
     <h1 class="font-bold text-[1.3125rem]">{$_('landing.title')}</h1>
     <p class="h-[4rem] line-clamp-3 text-[#0A0A0A]/70 text-[0.875rem]">
