@@ -33,9 +33,8 @@
 {#if showSplash}
   <div in:fade out:fade>
     <Splash />
-  </div>
+  </div>  
 {/if}
-<!-- todo: add logo header -->
 <div class="flex flex-col w-full h-full px-5 pb-12 bg-white">
   <div class="mt-[1.5rem]">
     <h1 class="font-bold text-[1.3125rem]">{$_('landing.title')}</h1>
