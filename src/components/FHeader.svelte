@@ -9,7 +9,7 @@
   import Loading from '../assets/images/loading.gif'
 
   $: displayDropdown = !['/', '/restaurant'].includes($location)
-  $: displayBackButton = !['/home', '/landing'].includes($location)
+  $: displayBackButton = !['/home', '/'].includes($location)
   $: headerText = $location === '/translate-progress' ? '이미지 선택' : ''
 
   const onClickBackButton = () => {
