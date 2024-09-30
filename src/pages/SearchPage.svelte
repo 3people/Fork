@@ -9,10 +9,11 @@
   import type {Language} from '../locale/types'
 
   let searchResult: any = []
+
   $: keyword = parseQueryString($querystring ?? '')?.keyword
 
   const getSearchResult = async () => {
-    const result = await fetchKeywordSearch({keyword, locale: $locale as Language})
+    const result = await fetchKeywordSearch({keyword, locale: $locale as Language, row: '20'})
     searchResult = result
   }
 
@@ -29,7 +30,7 @@
   }
 </script>
 
-<div class="mt-4">
+<div class="w-full px-4 mt-4 mb-16">
   <FSearchInput value={keyword} on:input={onInput} />
   {#if searchResult.length > 0}
     <div class="flex flex-col mt-14">

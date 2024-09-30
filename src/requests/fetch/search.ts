@@ -63,13 +63,18 @@ export const fetchKeywordSearch = async (payload: SearchPayload) => {
 
   const data = await response.json()
   const restaurants = normalizeRestaurants(data.response.body.items.item)
-  const restaurantInfos = []
 
-  for (const restaurant of restaurants) {
+  const restaurantInfoPromises = restaurants.map(async (restaurant) => {
     const commonInfo = await fetchRestaurantCommonInfo({contentId: restaurant, locale})
     const detailInfo = await fetchRestaurantDetailInfo({contentId: restaurant, locale})
-    restaurantInfos.push({...commonInfo, ...detailInfo})
-  }
+    return {...commonInfo, ...detailInfo}
+  })
+
+  const results = await Promise.allSettled(restaurantInfoPromises)
+
+  const restaurantInfos = results
+    .filter((result): result is PromiseFulfilledResult<any> => result.status === 'fulfilled')
+    .map((result) => result.value)
 
   return restaurantInfos
 }
