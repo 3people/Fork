@@ -24,6 +24,7 @@
   import FMenu from '../components/FMenu.svelte'
   import FImg from '../components/FImg.svelte'
   import {imgUrl2Text, translate} from '../requests/fetch/translate'
+  import {imageStore} from '../store/image'
 
   /**
    * TODO: 리팩토링이 빠를까 자살이 빠를까 생각해보기
@@ -64,6 +65,8 @@
     const today = new Date()
     return `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`
   }
+
+  const {getAiReview} = imageStore
 
   const getMenuInfo = async () => {
     const result = await imgUrl2Text({imageUrl: imageList[0]})
@@ -144,14 +147,20 @@
           {/each}
           <!-- eslint-disable no-unused-vars -->
         {:then result}
-          <div class="bg-[#ff4a221a] rounded-lg p-3">
-            <div class="flex items-center">
-              <ForkLogo />
-              <span class="font-santokki text-brand-point text-lg leading-6">포크</span>
-              <span class="font-bold text-lg">&nbsp;AI 가이드</span>
+          {#await getAiReview()}
+            <FSkeleton />
+          {:then review}
+            <div class="bg-[#ff4a221a] rounded-lg p-3">
+              <div class="flex items-center">
+                <ForkLogo />
+                <span class="font-santokki text-brand-point text-lg leading-6">포크</span>
+                <span class="font-bold text-lg">&nbsp;AI 가이드</span>
+              </div>
+              <p class="text-black-tertiary text-xs">
+                {Object.values(review).filter(Boolean).join(' ')}
+              </p>
             </div>
-            <span class="text-black-tertiary text-xs">test</span>
-          </div>
+          {/await}
           {#if result.title}
             <div class="bg-gray-200 rounded-lg p-3 flex flex-col">
               <span class="font-bold mb-1.5">{result.title}</span>

@@ -1,10 +1,11 @@
 import {derived, get, writable} from 'svelte/store'
-import {img2Text, translate} from '../../requests/fetch/translate'
+import {type AiReview, generateAiReview, img2Text, translate} from '../../requests/fetch/translate'
 
 export const createImageStore = () => {
   const srcStore = writable('')
   const imageFileStore = writable('')
-  const translatedMenuStore = writable({})
+  const translatedMenuStore = writable()
+  const aiReviewStore = writable<AiReview>()
   const isLoadingStore = writable(false)
 
   const setImageSrc = (src: string) => {
@@ -24,10 +25,18 @@ export const createImageStore = () => {
     return answer
   }
 
+  const getAiReview = async () => {
+    const result = await generateAiReview(get(translatedMenuStore))
+    aiReviewStore.set(result)
+    localStorage.setItem('aiReview', JSON.stringify(result))
+    console.log(result)
+    return result
+  }
+
   const imageInfo = derived(
-    [srcStore, imageFileStore, isLoadingStore, translatedMenuStore],
-    ([src, imageFile, isLoading, translatedMenu]) => {
-      return {src, imageFile, isLoading, translatedMenu}
+    [srcStore, imageFileStore, isLoadingStore, translatedMenuStore, aiReviewStore],
+    ([src, imageFile, isLoading, translatedMenu, aiReview]) => {
+      return {src, imageFile, isLoading, translatedMenu, aiReview}
     },
   )
 
@@ -36,6 +45,7 @@ export const createImageStore = () => {
     setImageSrc,
     setImageFile,
     translateMenu,
+    getAiReview,
   }
 }
 
