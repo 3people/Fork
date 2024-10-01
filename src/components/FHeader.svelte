@@ -29,7 +29,7 @@
 <header
   {...$$restProps}
   class={clsx(
-    'px-4 flex items-center justify-between max-w-[48rem] w-full h-12 fixed top-0 z-10 bg-white',
+    'px-4 flex items-center justify-between max-w-[48rem] w-full h-12 absolute top-0 bg-white',
     $$restProps.class,
   )}
 >
