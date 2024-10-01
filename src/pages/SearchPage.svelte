@@ -21,7 +21,7 @@
   $: description = foodInfo?.[descriptionKey[$locale as Language]]
 
   const getSearchResult = async (keyword: string, language?: Language | null | string) => {
-    const result = await fetchKeywordSearch({keyword, locale: language as Language, row: '5'})
+    const result = await fetchKeywordSearch({keyword, locale: language as Language, row: '20'})
     return result ?? []
   }
 
