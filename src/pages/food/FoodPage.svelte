@@ -26,12 +26,13 @@
   const queryFoodId = parseQueryString($querystring ?? '').id
   const food = foodData.find((data) => String(data.id) === queryFoodId)
   
-
-  
-  const getSearchResult = async () => {
+  const getSearchResult = async (locale?: string | null) => {
+    if(!locale){
+      return []
+    }
     const result = await fetchKeywordSearch({
       keyword: foodData.filter((food) => queryFoodId === String(food.id))[0].name,
-      locale: $locale as Language,
+      locale: locale as Language,
       row: '10',
     })
     return result ?? []
@@ -72,7 +73,7 @@
       '{name}' {$_(`food.popular`)}
     </span>
     <div class="mt-4 flex flex-col gap-3">
-      {#await getSearchResult()}
+      {#await getSearchResult($locale)}
         <!-- eslint-disable no-unused-vars -->
         {#each Array(5) as _}
           <FSkeleton />
