@@ -67,5 +67,12 @@ export default {
       button: '確認',
     },
   },
-  menu: 'メニュー',
+  translateProgress: {
+    button: '確認',
+  },
+  menu: {
+    text: 'メニュー',
+    option: 'オプション',
+    allergy: 'アレルギーを引き起こす成分',
+  },
 }

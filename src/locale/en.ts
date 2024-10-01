@@ -67,5 +67,12 @@ export default {
       button: 'Confirm',
     },
   },
-  menu: 'Menu',
+  translateProgress: {
+    button: 'Confirm',
+  },
+  menu: {
+    text: 'Menu',
+    option: 'Options',
+    allergy: 'Allergy-causing ingredients',
+  },
 }

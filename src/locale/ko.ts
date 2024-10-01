@@ -72,5 +72,12 @@ export default {
       button: '확인',
     },
   },
-  menu: '메뉴',
+  translateProgress: {
+    button: '확인',
+  },
+  menu: {
+    text: '메뉴',
+    option: '옵션',
+    allergy: '알레르기 유발 성분',
+  },
 }
