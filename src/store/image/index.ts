@@ -1,6 +1,5 @@
 import {derived, get, writable} from 'svelte/store'
 import {type AiReview, generateAiReview, img2Text, translate} from '../../requests/fetch/translate'
-import {locale} from 'svelte-i18n'
 
 export const createImageStore = () => {
   const srcStore = writable('')

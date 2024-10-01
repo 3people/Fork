@@ -1,5 +1,3 @@
-import {food204, food31, food351, food539} from './ko'
-
 export default {
   landing: {
     start: 'Start',
