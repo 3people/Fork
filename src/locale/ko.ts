@@ -72,4 +72,5 @@ export default {
       button: '확인',
     },
   },
+  menu: '메뉴',
 }

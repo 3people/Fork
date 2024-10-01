@@ -67,4 +67,5 @@ export default {
       button: 'Confirm',
     },
   },
+  menu: 'Menu',
 }

@@ -67,4 +67,5 @@ export default {
       button: '確認',
     },
   },
+  menu: 'メニュー',
 }
