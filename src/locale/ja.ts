@@ -48,6 +48,8 @@ export default {
   },
   search: {
     placeholder: '韓国料理、レストラン検索。',
+    restaurant: 'レストラン',
+    foodInfo: '食の情報',
   },
   translate: {
     title: {
