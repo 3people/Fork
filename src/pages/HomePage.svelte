@@ -41,9 +41,11 @@
   }
 </script>
 
-<div class="w-full px-5 py-4 flex flex-col justify-center relative">
-  <FSearchInput on:enter={onEnter} />
-  <div class="embla overflow-hidden mt-8" use:emblaCarouselSvelte>
+<div class="w-full py-4 flex flex-col justify-center relative">
+  <div class="px-5" >
+    <FSearchInput on:enter={onEnter} />
+  </div>
+  <div class="embla overflow-hidden mt-8 px-5" use:emblaCarouselSvelte>
     <div class="flex gap-3">
       {#each foodMock as item}
         <FCard title={item.title} id={item.id} image={item.image} on:click={onClickCard} />
@@ -51,8 +53,8 @@
     </div>
   </div>
   <div class="mt-12">
-    <span class="font-bold text-lg">{$_('home.popular')}</span>
-    <div class="overflow-hidden" use:emblaCarouselSvelte>
+    <span class="font-bold text-lg px-5">{$_('home.popular')}</span>
+    <div class="overflow-hidden px-5" use:emblaCarouselSvelte>
       <div class="flex mt-4 gap-3 w-[11.25rem]">
         <!--{#await getRestaurants() then restaurants}-->
         <!--  {#each restaurants as item}-->
