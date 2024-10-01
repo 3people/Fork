@@ -22,7 +22,7 @@ const urlListByLocale: any = {
   ko: 'https://apis.data.go.kr/B551011/KorService1/searchKeyword1?',
   en: 'https://apis.data.go.kr/B551011/EngService1/searchKeyword1?',
   ja: 'https://apis.data.go.kr/B551011/JpnService1/searchKeyword1?',
-  zh: 'http://apis.data.go.kr/B551011/ChsService1/searchKeyword1?',
+  zh: 'https://apis.data.go.kr/B551011/ChsService1/searchKeyword1?',
 }
 
 export const fetchKeywordSearch = async (payload: SearchPayload) => {
