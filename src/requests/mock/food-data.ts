@@ -14,7 +14,7 @@ export interface FoodItem {
   description_zh2: string
 }
 
-export const foodMock: FoodItem[] = [
+export const foodData: FoodItem[] = [
   {
     id: 1,
     category: '상차림 [Sangcharim]',

@@ -1,20 +1,21 @@
 <script lang="ts">
   import FCard from '../components/FCard.svelte'
   import emblaCarouselSvelte from 'embla-carousel-svelte'
-  import {foods} from '../requests/mock/food'
+  import {getHomeFoodMock} from '../requests/mock/home-mock'
   import {push} from 'svelte-spa-router'
   import FSearchInput from '../components/FSearchInput.svelte'
   import FInfo from '../components/FInfo.svelte'
   // import {fetchRestaurants} from '../requests/fetch/restaurant-list'
-  import {_} from 'svelte-i18n'
+  import {_, locale} from 'svelte-i18n'
   import {restaurantMock} from '../requests/mock/restaurant'
   import Camera from '../assets/icons/Camera.svelte'
+  import type { Language } from '../locale/types'
 
   emblaCarouselSvelte.globalOptions = {dragFree: true}
 
-  const onClickCard = ({detail: foodInfo}: CustomEvent) => {
-    if (foodInfo.id) {
-      push(`/food?id=${foodInfo.id}`)
+  const onClickCard = ({detail}: CustomEvent) => {
+    if (detail) {
+      push(`/food?id=${detail}`)
     }
   }
 
@@ -23,6 +24,8 @@
       push(`/search?keyword=${keyword}`)
     }
   }
+
+  $: foodMock = getHomeFoodMock($locale as Language)
 
   // const getRestaurants = async () => {
   //   // const result = await fetchRestaurants({})
@@ -42,8 +45,8 @@
   <FSearchInput on:enter={onEnter} />
   <div class="embla overflow-hidden mt-8" use:emblaCarouselSvelte>
     <div class="flex gap-3">
-      {#each foods as item}
-        <FCard {item} on:click={onClickCard} />
+      {#each foodMock as item}
+        <FCard title={item.title} id={item.id} image={item.image} on:click={onClickCard} />
       {/each}
     </div>
   </div>
