@@ -41,7 +41,7 @@
   }
 </script>
 
-<div class="w-[7.25rem] relative z-10">
+<div {...$$restProps} class={`w-[7.25rem] relative z-10 flex ${$$restProps.class}`}>
   <button
     class="flex items-center rounded-2xl bg-white px-2 py-1.5 w-full border-solid border-[1px] border-[#EFEFEF]"
     on:click={onToggle}

@@ -41,7 +41,7 @@
       <span class="ml-2 font-bold text-base">{headerText}</span>
     </button>
   {:else}
-    <div class="flex gap-0.5 items-center">
+    <div class="flex gap-0.5 h-full items-center">
       <ForkLogo />
       <span class="font-santokki text-brand-point leading-6">{$_('header.title')}</span>
     </div>
