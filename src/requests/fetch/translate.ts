@@ -3,6 +3,30 @@ import {normalizeAnswer} from '../normalize/translate'
 /**
  * TODO: api 파일 분리
  */
+
+const urlToFile = async (url: string, filename: string): Promise<File> => {
+  const response = await fetch(url)
+  const blob = await response.blob()
+  return new File([blob], filename, {type: blob.type})
+}
+
+export const imgUrl2Text = async (payload: any) => {
+  const imageFile = await urlToFile(payload.imageUrl, 'menu.jpeg')
+  const formData = new FormData()
+  formData.append('document', imageFile)
+
+  const response = await fetch('https://api.upstage.ai/v1/document-ai/ocr', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_OCR_KEY}`,
+    },
+    body: formData,
+  })
+
+  const result = await response.json()
+  return normalizeText(result)
+}
+
 export const img2Text = async (payload: any) => {
   const formData = new FormData()
   formData.append('document', payload.imageFile)

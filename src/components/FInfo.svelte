@@ -4,16 +4,26 @@
   import {location} from 'svelte-spa-router'
   import FImg from './FImg.svelte'
 
-  export let type: string = '식당'
+  export let type: 'restaurant' | 'food' = 'restaurant'
   export let item: any
   export let flow: 'vertical' | 'horizontal' = 'horizontal'
 
   const dispatch = createEventDispatcher()
 
   const onClick = () => {
-    dispatch('click', {
-      contentId: $location !== '/search' ? item.relation[$locale ?? 'ko'] : item.contentId,
-    })
+    if (type === 'restaurant') {
+      dispatch('click', {
+        contentId: ['/search', '/food'].includes($location)
+          ? item.contentId
+          : item.relation[$locale ?? 'ko'],
+        type: 'restaurant',
+      })
+    } else {
+      dispatch('click', {
+        id: item.id,
+        type: 'food',
+      })
+    }
   }
 </script>
 
@@ -28,19 +38,30 @@
     src={item.firstImage}
     alt={item.title}
   />
-  <div class="flex flex-col gap-1 text-left">
-    <span class="text-brand-point font-bold text-[0.625rem]">{type}</span>
-    {#if ['/search', '/food'].includes($location)}
-      <span class="font-bold text-base">{item.title}</span>
-      <span class="text-xs text-black-tertiary">{@html item.openTime}</span>
-      <span class="text-xs text-black-secondary">{item.firstMenu}</span>
-    {:else}
-      <span class="font-bold text-base">{$_(`home.info.${item.contentId}.title`)}</span>
-      <span class="text-xs text-black-tertiary">
-        {@html $_(`home.info.${item.contentId}.openTime`)}
-      </span>
-      <span class="text-xs text-black-secondary">{$_(`home.info.${item.contentId}.firstMenu`)}</span
-      >
-    {/if}
-  </div>
+  {#if type === 'restaurant'}
+    <div class="flex flex-col gap-1 text-left">
+      <span class="text-brand-point font-bold text-[0.625rem]">식당</span>
+      {#if ['/search', '/food'].includes($location)}
+        <span class="font-bold text-base">{item.title}</span>
+        <span class="text-xs text-black-tertiary">{@html item.openTime}</span>
+        <span class="text-xs text-black-secondary">{item.firstMenu}</span>
+      {:else}
+        <span class="font-bold text-base">{$_(`home.info.${item.contentId}.title`)}</span>
+        <span class="text-xs text-black-tertiary">
+          {@html $_(`home.info.${item.contentId}.openTime`)}
+        </span>
+        <span class="text-xs text-black-secondary"
+          >{$_(`home.info.${item.contentId}.firstMenu`)}</span
+        >
+      {/if}
+    </div>
+  {:else}
+    <div class="flex flex-col gap-1 text-left">
+      <span class="text-brand-point font-bold text-[0.625rem]">{item.category}</span>
+      {#if ['/search', '/food'].includes($location)}
+        <span class="font-bold text-base">{item.title}</span>
+        <span class="text-xs text-black-secondary">{item.description}</span>
+      {/if}
+    </div>
+  {/if}
 </button>

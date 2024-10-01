@@ -23,11 +23,18 @@
   import FSkeleton from '../components/FSkeleton.svelte'
   import FMenu from '../components/FMenu.svelte'
   import FImg from '../components/FImg.svelte'
+  import {imgUrl2Text, translate} from '../requests/fetch/translate'
 
+  /**
+   * TODO: 리팩토링이 빠를까 자살이 빠를까 생각해보기
+   */
   let id = parseQueryString($querystring ?? '').id
   let detailInfo: RestaurantDetailInfo
   let commonInfo: RestaurantCommonInfo
-  let imageList = data.find((item: any) => item.ko_contentid === id)?.menu_images ?? []
+  let imageList = (data.find((item: any) => item.ko_contentid === id)?.menu_images ?? []).map(
+    (image: string) =>
+      `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`,
+  )
 
   onMount(async () => {
     const params = {
@@ -58,9 +65,9 @@
     return `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`
   }
 
-  const asyncTest = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-    return 'Hello from async!'
+  const getMenuInfo = async () => {
+    const result = await imgUrl2Text({imageUrl: imageList[0]})
+    return await translate({result})
   }
 </script>
 
@@ -130,7 +137,7 @@
         {/each}
       </div>
       <div class="flex flex-col mt-6 gap-3">
-        {#await asyncTest()}
+        {#await getMenuInfo()}
           <!-- eslint-disable no-unused-vars -->
           {#each Array(5) as _}
             <FSkeleton />
@@ -145,14 +152,22 @@
             </div>
             <span class="text-black-tertiary text-xs">test</span>
           </div>
-          <FMenu
-            item={{
-              name: 'test',
-              price: 10000,
-              description: 'test',
-              allergyList: ['test', 'test'],
-            }}
-          />
+          {#if result.title}
+            <div class="bg-gray-200 rounded-lg p-3 flex flex-col">
+              <span class="font-bold mb-1.5">{result.title}</span>
+              <!--{#if result.subText}-->
+              <!--  <span class="text-black-tertiary text-xs">{result.subText}</span>-->
+              <!--{/if}-->
+            </div>
+          {/if}
+          {#each result.menuList as item}
+            <FMenu {item} />
+          {/each}
+          <!-- eslint-disable no-unused-vars -->
+          <!--{:catch error}-->
+          <!--  <div class="bg-[#ff4a221a] rounded-lg p-3">-->
+          <!--    <span class="text-black-tertiary text-xs">메뉴 정보가 없습니다</span>-->
+          <!--  </div>-->
         {/await}
       </div>
     </div>
