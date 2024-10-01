@@ -10,7 +10,16 @@
 
   $: displayDropdown = !['/', '/restaurant'].includes($location)
   $: displayBackButton = !['/home', '/'].includes($location)
-  $: headerText = $location === '/translate-progress' ? '이미지 선택' : ''
+  $: headerText = (() => {
+    switch ($location) {
+      case '/translate-progress':
+        return '이미지 선택'
+      case '/search':
+        return '검색'
+      default:
+        return ''
+    }
+  })()
 
   const onClickBackButton = () => {
     pop()
