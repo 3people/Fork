@@ -50,6 +50,8 @@ export default {
   },
   search: {
     placeholder: 'Search Korean food, restaurants.',
+    restaurant: 'Restaurant',
+    foodInfo: 'Food Information',
   },
   translate: {
     title: {
