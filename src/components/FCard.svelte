@@ -1,26 +1,35 @@
 <script lang="ts">
   import {createEventDispatcher} from 'svelte'
-  import type {Food} from '../requests/mock/food'
-  import {_} from 'svelte-i18n'
+  import {_, locale} from 'svelte-i18n'
+  import {foodData, type FoodItem} from '../requests/mock/food-data'
+  import type {Language} from '../locale/types'
+  import { descriptionKey, nameKey } from '../pages/food/key-map'
+
+  export let title: string = ''
+  export let id: string = ''
+  export let image: string = ''
+
+  $: name = food?.[nameKey[$locale as Language]]
+  $: description = food?.[descriptionKey[$locale as Language]]
 
   const dispatch = createEventDispatcher()
-  export let item: Food
+  const food = foodData.find((data) => String(data.id) === id)
 
   const onClickCard = () => {
-    dispatch('click', item)
+    dispatch('click', id)
   }
 </script>
 
 <button
   class="rounded-lg w-[17.5rem] h-[27rem] text-white bg-cover bg-no-repeat bg-center flex-[0_0_100%]"
-  style={`background-image: url(${item.image})`}
+  style={`background-image: url(${image})`}
   on:click={onClickCard}
 >
   <div class="p-4 flex flex-col w-full h-full justify-between text-left">
-    <span class="font-bold text-xl">{@html $_(`food.card.${item.id}.top`)}</span>
+    <span class="font-bold text-xl">{@html title}</span>
     <div class="mt-auto">
-      <span class="font-bold text-lgv">{$_(`food.card.${item.id}.name`)}</span>
-      <p class="mt-2 text-sm">{$_(`food.card.${item.id}.description`)}</p>
+      <span class="font-bold text-lgv">{name}</span>
+      <p class="mt-2 text-sm">{description}</p>
     </div>
   </div>
 </button>

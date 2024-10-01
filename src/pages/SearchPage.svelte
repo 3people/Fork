@@ -7,7 +7,7 @@
   import FInfo from '../components/FInfo.svelte'
   import {locale} from 'svelte-i18n'
   import type {Language} from '../locale/types'
-  import {foodMock} from '../requests/mock/food-mock'
+  import {foodData} from '../requests/mock/food-data'
   import {onDestroy} from 'svelte'
 
   let searchResult: any = []
@@ -15,7 +15,7 @@
 
   $: keyword = parseQueryString($querystring ?? '')?.keyword
 
-  $: foodInfo = foodMock.find((food) => food.name === keyword)
+  $: foodInfo = foodData.find((food) => food.name === keyword)
 
   const getSearchResult = async () => {
     const result = await fetchKeywordSearch({keyword, locale: $locale as Language, row: '5'})
