@@ -72,5 +72,7 @@ export default {
     text: 'Menu',
     option: 'Options',
     allergy: 'Allergy-causing ingredients',
+    additionalInfo: 'Additional information',
+    viewDetails: 'View details',
   },
 }

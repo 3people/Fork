@@ -72,5 +72,7 @@ export default {
     text: '菜單',
     option: '选项',
     allergy: 'アレルギーを引き起こす成分',
+    additionalInfo: '额外信息',
+    viewDetails: '查看详情',
   },
 }

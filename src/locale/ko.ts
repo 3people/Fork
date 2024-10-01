@@ -79,5 +79,7 @@ export default {
     text: '메뉴',
     option: '옵션',
     allergy: '알레르기 유발 성분',
+    additionalInfo: '추가 정보',
+    viewDetails: '자세히 보기',
   },
 }

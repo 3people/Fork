@@ -3,7 +3,10 @@
   import ChevronDown from '../assets/icons/ChevronDown.svelte'
   import Option from '../assets/icons/Option.svelte'
   import Allergy from '../assets/icons/Allergy.svelte'
-  import {_} from 'svelte-i18n'
+  import {_, locale} from 'svelte-i18n'
+  import {foodData} from '../requests/mock/food-data'
+  import MenuInfo from '../assets/icons/MenuInfo.svelte'
+  import {push} from 'svelte-spa-router'
 
   interface item {
     name?: string
@@ -20,19 +23,37 @@
   }
   export let item: item
 
-  $: console.log(item)
-
   let isExpanded = false
+  let foodInfo = foodData.find((food) => food.name === item.name)
+
+  const getAdditionalInfo = () => {
+    switch ($locale) {
+      case 'ko':
+        return foodInfo?.description
+      case 'en':
+        return foodInfo?.description_en
+      case 'zh':
+        return foodInfo?.description_zh
+      case 'ja':
+        return foodInfo?.description_ja
+      default:
+        return foodInfo?.description
+    }
+  }
 
   const onExpand = () => {
     isExpanded = !isExpanded
+  }
+
+  const onViewMore = () => {
+    push(`/food?id=${foodInfo?.id}`)
   }
 </script>
 
 <div class="w-full bg-gray-100 rounded-lg p-3 flex flex-col gap-[0.475rem]">
   <div class="flex justify-between">
     <span class="font-bold">{item.name}</span>
-    {#if item.optionList?.length || item.allergyInfo?.length}
+    {#if item.optionList?.length || item.allergyInfo?.length || foodInfo}
       <button
         class={`flex justify-center items-center ${isExpanded ? 'rotate-180' : ''}`}
         on:click={onExpand}
@@ -89,6 +110,23 @@
             </div>
           {/each}
         </div>
+      </div>
+    {/if}
+    {#if foodInfo}
+      <div class="flex flex-col mt-6">
+        <div class="flex gap-1 items-center mb-1.5">
+          <MenuInfo />
+          <span class="text-black-secondary font-bold">{$_('menu.additionalInfo')}</span>
+        </div>
+        <div class="flex flex-col text-black-tertiary text-sm">
+          {getAdditionalInfo()}
+        </div>
+        <button
+          class="mt-3 text-center py-2 w-[8.375rem] border-solid border-[0.5px] border-[#CACACA] rounded bg-white text-black-quaternary font-bold text-xs"
+          on:click={onViewMore}
+        >
+          {$_('menu.viewDetails')}
+        </button>
       </div>
     {/if}
   {/if}
