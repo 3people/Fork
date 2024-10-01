@@ -73,8 +73,8 @@ export const fetchKeywordSearch = async (payload: SearchPayload) => {
   const results = await Promise.allSettled(restaurantInfoPromises)
 
   const restaurantInfos = results
-    .filter((result): result is PromiseFulfilledResult<any> => result.status === 'fulfilled')
-    .map((result) => result.value)
+    ?.filter((result): result is PromiseFulfilledResult<any> => result.status === 'fulfilled')
+    ?.map((result) => result.value)
 
   return restaurantInfos
 }

@@ -60,7 +60,7 @@
       <span class="text-brand-point font-bold text-[0.625rem]">{item.category}</span>
       {#if ['/search', '/food'].includes($location)}
         <span class="font-bold text-base">{item.title}</span>
-        <span class="text-xs text-black-secondary">{item.description}</span>
+        <span class="text-xs text-black-secondary line-clamp-3">{item.description}</span>
       {/if}
     </div>
   {/if}

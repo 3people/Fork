@@ -10,12 +10,15 @@
   import FSkeleton from '../components/FSkeleton.svelte'
   import {_, locale} from 'svelte-i18n'
   import { getHomeFoodMock } from '../requests/mock/home-mock'
+  import { descriptionKey, nameKey } from './food/key-map'
 
   $: keyword = parseQueryString($querystring ?? '')?.keyword
   $: foodInfo = foodData.find((food) => food.name === keyword)
 
   $: mockData = getHomeFoodMock($locale as Language)
   $: image = mockData.find((data) => String(data.name) === keyword)?.image ?? ''
+  $: name = foodInfo?.[nameKey[$locale as Language]]
+  $: description = foodInfo?.[descriptionKey[$locale as Language]]
 
   const getSearchResult = async (keyword: string, language?: Language | null | string) => {
     const result = await fetchKeywordSearch({keyword, locale: language as Language, row: '5'})
@@ -38,13 +41,13 @@
   <div class="mt-7">
     <span class="font-bold text-lg block mt-4 mb-4">'{keyword}' {$_(`search.foodInfo`)}</span>
   </div>
-  {#if foodInfo?.name}
+  {#if name}
     <FInfo
       type="food"
       item={{
-        title: foodInfo?.name,
+        title: name,
         firstImage: image,
-        description: foodInfo?.description,
+        description: description,
         category: foodInfo?.category,
         id: foodInfo?.id,
       }}
@@ -61,6 +64,7 @@
       </div>
     {:then searchResult} 
       {#if searchResult.length > 0}
+        {searchResult.length}
         <div class="flex flex-col gap-3">
           {#each searchResult as item}
             <FInfo {item} on:click={onClickInfo} />
