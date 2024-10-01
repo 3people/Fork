@@ -73,4 +73,20 @@ export default {
   search: {
     placeholder: '請搜索一下韓國飲食，餐廳。',
   },
+  translate: {
+    title: {
+      text: '選單翻譯',
+      description: '請準備要翻譯的菜單圖片。',
+    },
+    guide: {
+      text: '圖像/攝影指南',
+      correct: '請把菜單拍得滿滿的。',
+      wrong: '注意不要反射光線。',
+    },
+    button: '選擇菜單中的照片',
+    progress: {
+      header: '圖像選擇',
+      button: '確認',
+    },
+  },
 }

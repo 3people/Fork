@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import ForkLogo from '../assets/icons/ForkLogo.svelte'
   import FDropdown from './FDropdown.svelte'
   import {location, pop} from 'svelte-spa-router'
@@ -13,7 +13,7 @@
   $: headerText = (() => {
     switch ($location) {
       case '/translate-progress':
-        return '이미지 선택'
+        return $_('translate.progress.header')
       case '/search':
         return '검색'
       default:

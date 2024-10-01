@@ -73,4 +73,20 @@ export default {
   search: {
     placeholder: '韓国料理、レストラン検索。',
   },
+  translate: {
+    title: {
+      text: 'メニュー 翻訳',
+      description: '翻訳するメニューの画像を準備してください。',
+    },
+    guide: {
+      text: 'イメージ/撮影ガイド',
+      correct: 'メニューが画面にいっぱいになるように撮影してください。',
+      wrong: '光が反射しないように注意してください。',
+    },
+    button: 'メニューの画像を選択する',
+    progress: {
+      header: '画像選択',
+      button: '確認',
+    },
+  },
 }

@@ -73,4 +73,20 @@ export default {
   search: {
     placeholder: 'Search Korean food, restaurants.',
   },
+  translate: {
+    title: {
+      text: 'Menu Translate',
+      description: 'Please prepare the menu image to be translated.',
+    },
+    guide: {
+      text: 'image/photographing guide',
+      correct: 'Please take a picture so that the menu is full on the screen.',
+      wrong: 'Be careful not to reflect the light.',
+    },
+    button: 'Select Menu Images',
+    progress: {
+      header: 'Select Image',
+      button: 'Confirm',
+    },
+  },
 }
