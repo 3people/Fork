@@ -8,6 +8,7 @@
   // import {fetchRestaurants} from '../requests/fetch/restaurant-list'
   import {_, locale} from 'svelte-i18n'
   import {restaurantMock} from '../requests/mock/restaurant'
+  import { getRandomRegionRestaurantMock } from '../requests/mock/region-restaurant'
   import Camera from '../assets/icons/Camera.svelte'
   import type { Language } from '../locale/types'
 
@@ -26,6 +27,8 @@
   }
 
   $: foodMock = getHomeFoodMock($locale as Language)
+  $: randomRegionRestaurantMock = getRandomRegionRestaurantMock()
+  $: regionTitle = randomRegionRestaurantMock.title[$locale as Language]
 
   // const getRestaurants = async () => {
   //   // const result = await fetchRestaurants({})
@@ -50,6 +53,16 @@
       {#each foodMock as item}
         <FCard title={item.title} id={item.id} image={item.image} on:click={onClickCard} />
       {/each}
+    </div>
+  </div>
+  <div class="mt-12">
+    <span class="font-bold text-lg px-5">{regionTitle}</span>
+    <div class="overflow-hidden px-5" use:emblaCarouselSvelte>
+      <div class="flex mt-4 gap-3 w-[11.25rem]">
+        {#each randomRegionRestaurantMock.mock as item}
+          <FInfo {item} flow="vertical" on:click={onClickInfo} />
+        {/each}
+      </div>
     </div>
   </div>
   <div class="mt-12">
