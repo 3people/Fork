@@ -16,15 +16,14 @@
 
   onMount(() => {
     const metaTag = document.querySelector('meta[name="theme-color"]')
-    console.log(metaTag)
-    metaTag?.setAttribute("content", "#FF4A22")
-    document.body.style.backgroundColor = "#FF4A22"
+    metaTag?.setAttribute('content', '#FF4A22')
+    document.body.style.backgroundColor = '#FF4A22'
 
     locale.set('ko')
     const timeout = setTimeout(() => {
       showSplash = false
-      metaTag?.setAttribute("content", "#FFFFFF")
-      document.body.style.backgroundColor = "#FFFFFF"
+      metaTag?.setAttribute('content', '#FFFFFF')
+      document.body.style.backgroundColor = '#FFFFFF'
     }, SPLASH_TIME)
     return () => clearTimeout(timeout)
   })
