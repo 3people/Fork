@@ -46,8 +46,8 @@ const urlListByLocale: any = {
     detail: 'https://apis.data.go.kr/B551011/JpnService1/detailIntro1?',
   },
   zh: {
-    common: 'https://apis.data.go.kr/B551011/ChtService1/detailCommon1?',
-    detail: 'https://apis.data.go.kr/B551011/ChtService1/detailIntro1?',
+    common: 'https://apis.data.go.kr/B551011/ChsService1/detailCommon1?',
+    detail: 'https://apis.data.go.kr/B551011/ChsService1/detailIntro1?',
   },
 }
 

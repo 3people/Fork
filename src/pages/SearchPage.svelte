@@ -9,8 +9,8 @@
   import {foodData} from '../requests/mock/food-data'
   import FSkeleton from '../components/FSkeleton.svelte'
   import {_, locale} from 'svelte-i18n'
-  import { getHomeFoodMock } from '../requests/mock/home-mock'
-  import { descriptionKey, nameKey } from './food/key-map'
+  import {getHomeFoodMock} from '../requests/mock/home-mock'
+  import {descriptionKey, nameKey} from './food/key-map'
 
   $: keyword = parseQueryString($querystring ?? '')?.keyword
   $: foodInfo = foodData.find((food) => food.name === keyword)
@@ -62,9 +62,8 @@
           <FSkeleton />
         {/each}
       </div>
-    {:then searchResult} 
+    {:then searchResult}
       {#if searchResult.length > 0}
-        {searchResult.length}
         <div class="flex flex-col gap-3">
           {#each searchResult as item}
             <FInfo {item} on:click={onClickInfo} />
