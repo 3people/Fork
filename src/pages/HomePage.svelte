@@ -5,12 +5,11 @@
   import {push} from 'svelte-spa-router'
   import FSearchInput from '../components/FSearchInput.svelte'
   import FInfo from '../components/FInfo.svelte'
-  // import {fetchRestaurants} from '../requests/fetch/restaurant-list'
   import {_, locale} from 'svelte-i18n'
   import {restaurantMock} from '../requests/mock/restaurant'
-  import { getRandomRegionRestaurantMock } from '../requests/mock/region-restaurant'
+  import {getRandomRegionRestaurantMock} from '../requests/mock/region-restaurant'
   import Camera from '../assets/icons/Camera.svelte'
-  import type { Language } from '../locale/types'
+  import type {Language} from '../locale/types'
 
   emblaCarouselSvelte.globalOptions = {dragFree: true}
 
@@ -30,11 +29,6 @@
   $: randomRegionRestaurantMock = getRandomRegionRestaurantMock()
   $: regionTitle = randomRegionRestaurantMock.title[$locale as Language]
 
-  // const getRestaurants = async () => {
-  //   // const result = await fetchRestaurants({})
-  //   // return result
-  // }
-
   const onClickInfo = ({detail: restaurantInfo}: CustomEvent) => {
     push(`/restaurant?id=${restaurantInfo.contentId}`)
   }
@@ -45,7 +39,7 @@
 </script>
 
 <div class="w-full py-4 flex flex-col justify-center relative">
-  <div class="px-5" >
+  <div class="px-5">
     <FSearchInput on:enter={onEnter} />
   </div>
   <div class="embla overflow-hidden mt-8 px-5" use:emblaCarouselSvelte>
@@ -69,11 +63,6 @@
     <span class="font-bold text-lg px-5">{$_('home.popular')}</span>
     <div class="overflow-hidden px-5" use:emblaCarouselSvelte>
       <div class="flex mt-4 gap-3 w-[11.25rem]">
-        <!--{#await getRestaurants() then restaurants}-->
-        <!--  {#each restaurants as item}-->
-        <!--    <FInfo {item} flow="vertical" on:click={onClickInfo} />-->
-        <!--  {/each}-->
-        <!--{/await}-->
         {#each restaurantMock as item}
           <FInfo {item} flow="vertical" on:click={onClickInfo} />
         {/each}

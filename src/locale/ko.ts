@@ -1,10 +1,3 @@
-import {foodData} from '../requests/mock/food-data'
-
-export const food539 = foodData.filter((food) => 539 === food.id)[0]
-export const food204 = foodData.filter((food) => 204 === food.id)[0]
-export const food351 = foodData.filter((food) => 351 === food.id)[0]
-export const food31 = foodData.filter((food) => 31 === food.id)[0]
-
 export default {
   landing: {
     start: '시작하기',

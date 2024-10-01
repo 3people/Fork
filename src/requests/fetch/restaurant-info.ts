@@ -3,7 +3,6 @@ import {
   normalizeRestaurantDetailInfo,
 } from '../normalize/restaurant-info'
 import type {Language} from '../../locale/types'
-import {locale} from 'svelte-i18n'
 
 /**
  * TODO: 공통 타입 묶기
