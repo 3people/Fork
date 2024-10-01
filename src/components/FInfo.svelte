@@ -28,21 +28,21 @@
 </script>
 
 <button
-  class="flex gap-4 flex-[0_0_100%] {flow === 'vertical' ? 'flex-col' : ''}"
+  class="flex gap-4 flex-[0_0_100%] overflow-hidden {flow === 'vertical' ? 'flex-col' : ''}"
   on:click={onClick}
 >
   <FImg
     class="{flow === 'vertical'
       ? 'w-[11.25rem] h-[11.25rem]'
-      : 'w-[5.625rem] h-[5.625rem]'} object-cover rounded-lg"
+      : 'min-w-[5.625rem] w-[5.625rem] h-[5.625rem]'} object-cover rounded-lg"
     src={item.firstImage}
     alt={item.title}
   />
   {#if type === 'restaurant'}
-    <div class="flex flex-col gap-1 text-left">
-      <span class="text-brand-point font-bold text-[0.625rem]">식당</span>
+    <div class="flex flex-col gap-1 text-left overflow-hidden">
+      <span class="text-brand-point font-bold text-[0.625rem] ">식당</span>
       {#if ['/search', '/food'].includes($location)}
-        <span class="font-bold text-base">{item.title}</span>
+        <span class="font-bold text-base truncate">{item.title}</span>
         <span class="text-xs text-black-tertiary">{@html item.openTime}</span>
         <span class="text-xs text-black-secondary">{item.firstMenu}</span>
       {:else}
