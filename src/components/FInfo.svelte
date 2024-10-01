@@ -39,15 +39,15 @@
     alt={item.title}
   />
   {#if type === 'restaurant'}
-    <div class="flex flex-col gap-1 text-left overflow-hidden">
+    <div class="flex flex-col gap-1 w-full text-left overflow-hidden">
       <span class="text-brand-point font-bold text-[0.625rem] ">식당</span>
       {#if ['/search', '/food'].includes($location)}
         <span class="font-bold text-base truncate">{item.title}</span>
-        <span class="text-xs text-black-tertiary">{@html item.openTime}</span>
+        <span class="text-xs text-black-tertiary truncate">{@html item.openTime}</span>
         <span class="text-xs text-black-secondary">{item.firstMenu}</span>
       {:else}
         <span class="font-bold text-base">{$_(`home.info.${item.contentId}.title`)}</span>
-        <span class="text-xs text-black-tertiary">
+        <span class="text-xs text-black-tertiary truncate">
           {@html $_(`home.info.${item.contentId}.openTime`)}
         </span>
         <span class="text-xs text-black-secondary"

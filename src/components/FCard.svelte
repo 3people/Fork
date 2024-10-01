@@ -21,7 +21,7 @@
 </script>
 
 <button
-  class="rounded-lg w-[17.5rem] h-[27rem] text-white bg-cover bg-no-repeat bg-center flex-[0_0_100%]"
+  class="rounded-lg min-w-[17.5rem] w-[17.5rem] h-[27rem] text-white bg-cover bg-no-repeat bg-center"
   style={`background-image: url(${image})`}
   on:click={onClickCard}
 >
