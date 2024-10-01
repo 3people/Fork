@@ -55,6 +55,8 @@ export default {
   },
   search: {
     placeholder: '한국 음식, 식당을 검색해 보세요.',
+    restaurant: '식당',
+    foodInfo: '음식 정보',
   },
   translate: {
     title: {

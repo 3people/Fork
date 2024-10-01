@@ -7,6 +7,7 @@ import type { Language } from '../../locale/types'
 export interface Food {
   id?: string
   title?: string
+  name?: string
   image?: string
 }
 
@@ -41,21 +42,25 @@ export const getHomeFoodMock = (language: Language): Food[] => {
   return [
     {
       id: '539',
+      name: '삼겹살',
       title: foodTitle[539][language],
       image: Sample1,
     },
     {
       id: '204',
+      name: '갈비탕',
       title: foodTitle[204][language],
       image: Sample2,
     },
     {
       id: '351',
+      name: '닭갈비',
       title: foodTitle[351][language],
       image: Sample3,
     },
     {
       id: '31',
+      name: '비빔밥',
       title: foodTitle[31][language],
       image: Sample4,
     },

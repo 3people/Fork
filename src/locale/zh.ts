@@ -48,6 +48,8 @@ export default {
   },
   search: {
     placeholder: '請搜索一下韓國飲食，餐廳。',
+    restaurant: '餐廳',
+    foodInfo: '飲食信息',
   },
   translate: {
     title: {
