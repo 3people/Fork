@@ -7,11 +7,11 @@
     fetchRestaurantCommonInfo,
     fetchRestaurantDetailInfo,
   } from '../requests/fetch/restaurant-info'
-  import type {Language} from '../locale/types'
   import type {
     RestaurantCommonInfo,
     RestaurantDetailInfo,
   } from '../requests/normalize/restaurant-info'
+  import type {Language} from '../locale/types'
 
   export let type: 'restaurant' | 'food' = 'restaurant'
   export let item: any

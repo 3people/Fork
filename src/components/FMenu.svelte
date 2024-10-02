@@ -7,7 +7,7 @@
   import {foodData} from '../requests/mock/food-data'
   import MenuInfo from '../assets/icons/MenuInfo.svelte'
   import {push} from 'svelte-spa-router'
-  import {Language} from '../locale/types'
+  import type {Language} from '../locale/types'
 
   interface item {
     name?: string
@@ -22,6 +22,7 @@
     allergyInfo?: string[]
     foodItem?: string[]
   }
+
   export let item: item
 
   let isExpanded = false
@@ -36,7 +37,7 @@
 
   const getExchangePriceText = (koreaPrice: string, locale?: string | null) => {
     const price = Number(koreaPrice) * exchangeRate[locale] ?? 0
-    switch (locale){
+    switch (locale) {
       case 'en':
         return `$${price}`
       case 'ja':
@@ -46,7 +47,6 @@
       case 'ko':
       default:
         return ''
-
     }
   }
 
@@ -90,7 +90,9 @@
     <div class="flex gap-1 items-center">
       <DollarSign />
       <span class="text-black-secondary font-bold">{item.price ?? ''}</span>
-      <span class="text-black-tertiary font-bold">{getExchangePriceText(item.price, $locale) ?? ''}</span>
+      <span class="text-black-tertiary font-bold"
+        >{getExchangePriceText(item.price, $locale) ?? ''}</span
+      >
     </div>
   {/if}
   {#if item.description}
