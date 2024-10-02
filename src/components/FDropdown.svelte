@@ -54,7 +54,7 @@
   </button>
   {#if isOpen}
     <div
-      class="absolute flex flex-col bg-white w-full mt-2 border-solid border-[1px] border-[#EFEFEF] rounded-lg"
+      class="absolute flex flex-col bg-white w-full mt-10 border-solid border-[1px] border-[#EFEFEF] rounded-lg"
     >
       {#each languageMap as lang}
         <button
