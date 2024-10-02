@@ -35,7 +35,8 @@
   }
 
   const getExchangePriceText = (koreaPrice: string, locale?: string | null) => {
-    const price = Number(koreaPrice) * exchangeRate[locale] ?? 0
+    const price = Number(koreaPrice) / exchangeRate[locale] ?? 0
+    console.log(locale, price)
     switch (locale){
       case 'en':
         return `$${price}`
