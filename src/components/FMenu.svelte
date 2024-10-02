@@ -43,17 +43,19 @@
     }
     const cleanPrice = removeParentheses(koreaPrice)
     const price = (Number(cleanPrice) / exchangeRate[locale ?? 'ko'] ?? 0).toFixed(2)
+    const priceText = price.toLocaleString()
 
-    switch (locale) {
+    switch (locale){
       case 'en':
-        return `$${price}`
+        return `$${priceText}`
       case 'ja':
-        return `¥${price}`
+        return `¥${priceText}`
       case 'zh':
-        return `¥${price}`
+        return `¥${priceText}`
       case 'ko':
       default:
         return ''
+
     }
   }
 
@@ -96,8 +98,8 @@
   {#if item.price}
     <div class="flex gap-1 items-center">
       <DollarSign />
-      <span class="text-black-secondary font-bold">{item.price ?? ''}</span>
-      <span class="text-black-tertiary font-bold"
+      <span class="text-black-secondary font-bold">{Number(item.price).toLocaleString() ?? ''}</span>
+      <span class="text-black-quaternary font-bold"
         >{getExchangePriceText(item.price, $locale) ?? ''}</span
       >
     </div>
