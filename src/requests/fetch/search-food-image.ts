@@ -1,3 +1,5 @@
+import {normalizeFoodImageList} from '../normalize/food-image-list'
+
 export interface SearchFoodImagePayload {
   pageSize?: string
   responseType?: 'xml' | 'json'
@@ -8,7 +10,7 @@ export interface SearchFoodImagePayload {
 
 export const fetchFoodImageSearch = async (payload: SearchFoodImagePayload) => {
   const {
-    pageSize='10',
+    pageSize='20',
     keyword,
     serviceKey=import.meta.env.VITE_GG_KEY,
     pageNo='1',
@@ -27,11 +29,18 @@ export const fetchFoodImageSearch = async (payload: SearchFoodImagePayload) => {
     service_Type: responseType,
   }
 
-  const response = await fetch('https://apis.data.go.kr/1390802/AgriFood/FdFoodCkryImage/getKoreanFoodFdFoodCkryImageList?' + new URLSearchParams(params), {
+  const response = await fetch('https://apis.data.go.kr/1390802/AgriFood/FdImage/getKoreanFoodFdImageList?' + new URLSearchParams(params), {
     method: 'GET',
   })
 
   const data = await response.json()
-  console.log(data)
-  return data
+  const list = normalizeFoodImageList(data.response.list ?? [])
+
+  for (let i = 0; i < list.length; i++) {
+    if(list[i]?.image){
+      return list[i]?.image
+    }
+  }
+
+  return ''
 }

@@ -7,14 +7,15 @@
   import {_, locale} from 'svelte-i18n'
   import {fetchKeywordSearch} from '../../requests/fetch/search'
   import type {Language} from '../../locale/types'
-  import {foodData, type FoodItem} from '../../requests/mock/food-data'
+  import {foodData} from '../../requests/mock/food-data'
   import FSkeleton from '../../components/FSkeleton.svelte'
   import FImg from '../../components/FImg.svelte'
-  import { getHomeFoodMock } from '../../requests/mock/home-mock'
-  import { descriptionKey, nameKey } from './key-map'
+  import {getHomeFoodMock} from '../../requests/mock/home-mock'
+  import {descriptionKey, nameKey} from './key-map'
   import {fetchFoodImageSearch} from '../../requests/fetch/search-food-image'
 
   let showAll = false
+  let searchedImage: string | undefined
 
   $: name = food?.[nameKey[$locale as Language]]
   $: description = food?.[descriptionKey[$locale as Language]]
@@ -22,10 +23,9 @@
 
   // 이미지 mock
   $: mockData = getHomeFoodMock($locale as Language)
-  $: searchedImage = searchImage(pronounceKorean ?? '')
-  $: image = mockData.find((data) => String(data.id) === queryFoodId)?.image ?? ''
-
-  $: console.log(searchedImage)
+  $: mockImage = mockData.find((data) => String(data.id) === queryFoodId)?.image
+  $: searchImage(pronounceKorean ?? '')
+  $: image = mockImage || searchedImage || ''
 
   const queryFoodId = parseQueryString($querystring ?? '').id
   const food = foodData.find((data) => String(data.id) === queryFoodId)
@@ -43,10 +43,9 @@
   }
 
   const searchImage = async (name: string) => {
-    const result = await fetchFoodImageSearch({
+    searchedImage = await fetchFoodImageSearch({
       keyword: name,
     })
-    return result
   }
 
   const handleShowAll = () => {
