@@ -11,18 +11,30 @@
   import {_, locale} from 'svelte-i18n'
   import {getHomeFoodMock} from '../requests/mock/home-mock'
   import {descriptionKey, nameKey} from './food/key-map'
+  import {fetchFoodImageSearch} from '../requests/fetch/search-food-image'
+
+  let searchedImage: string | undefined
 
   $: keyword = parseQueryString($querystring ?? '')?.keyword
   $: foodInfo = foodData.find((food) => food.name === keyword)
 
   $: mockData = getHomeFoodMock($locale as Language)
-  $: image = mockData.find((data) => String(data.name) === keyword)?.image ?? ''
+  $: mockImage = mockData.find((data) => String(data.name) === keyword)?.image ?? ''
+  $: image = mockImage || searchedImage || ''
+  $: searchImage(keyword ?? '')
+
   $: name = foodInfo?.[nameKey[$locale as Language]]
   $: description = foodInfo?.[descriptionKey[$locale as Language]]
 
   const getSearchResult = async (keyword: string, language?: Language | null | string) => {
     const result = await fetchKeywordSearch({keyword, locale: language as Language, row: '20'})
     return result ?? []
+  }
+
+  const searchImage = async (name: string) => {
+    searchedImage = await fetchFoodImageSearch({
+      keyword: name,
+    })
   }
 
   const onEnter = ({detail: value}: CustomEvent) => {
