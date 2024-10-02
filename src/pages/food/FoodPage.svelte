@@ -12,6 +12,7 @@
   import FImg from '../../components/FImg.svelte'
   import { getHomeFoodMock } from '../../requests/mock/home-mock'
   import { descriptionKey, nameKey } from './key-map'
+  import {fetchFoodImageSearch} from '../../requests/fetch/search-food-image'
 
   let showAll = false
 
@@ -21,11 +22,14 @@
 
   // 이미지 mock
   $: mockData = getHomeFoodMock($locale as Language)
+  $: searchedImage = searchImage(pronounceKorean ?? '')
   $: image = mockData.find((data) => String(data.id) === queryFoodId)?.image ?? ''
+
+  $: console.log(searchedImage)
 
   const queryFoodId = parseQueryString($querystring ?? '').id
   const food = foodData.find((data) => String(data.id) === queryFoodId)
-  
+
   const getSearchResult = async (locale?: string | null) => {
     if(!locale){
       return []
@@ -36,6 +40,13 @@
       row: '10',
     })
     return result ?? []
+  }
+
+  const searchImage = async (name: string) => {
+    const result = await fetchFoodImageSearch({
+      keyword: name,
+    })
+    return result
   }
 
   const handleShowAll = () => {
