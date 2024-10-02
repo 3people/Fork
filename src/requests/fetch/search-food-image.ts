@@ -27,7 +27,7 @@ export const fetchFoodImageSearch = async (payload: SearchFoodImagePayload) => {
     service_Type: responseType,
   }
 
-  const response = await fetch('http://apis.data.go.kr/1390802/AgriFood/FdFoodCkryImage/getKoreanFoodFdFoodCkryImageList?' + new URLSearchParams(params), {
+  const response = await fetch('https://apis.data.go.kr/1390802/AgriFood/FdFoodCkryImage/getKoreanFoodFdFoodCkryImageList?' + new URLSearchParams(params), {
     method: 'GET',
   })
 
