@@ -32,10 +32,17 @@
   let id = parseQueryString($querystring ?? '').id
   let detailInfo: RestaurantDetailInfo
   let commonInfo: RestaurantCommonInfo
-  let imageList = (data.find((item: any) => item.ko_contentid === id)?.menu_images ?? []).map(
+  $: imageList = (data.find((item: any) => item[menukeyMap[$locale as Language]] === id)?.menu_images ?? []).map(
     (image: string) =>
       `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`,
   )
+
+  const menukeyMap: Record<Language, string> = {
+    ko: 'ko_contentid',
+    en: 'eng_contentid',
+    zh: 'chs_contentid',
+    ja: 'jpn_contentid',
+  }
 
   onMount(async () => {
     const params = {
