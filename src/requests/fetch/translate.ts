@@ -1,8 +1,9 @@
 import {normalizeAnswer} from '../normalize/translate'
 import type {Language} from '../../locale/types'
-import {translatePrompt} from '../prompt'
+import {translatePrompt} from '../prompt/tranlsate'
 import {locale} from 'svelte-i18n'
 import {get} from 'svelte/store'
+import {aiReview} from '../prompt'
 
 /**
  * TODO: api 파일 분리
@@ -98,29 +99,8 @@ export interface AiReview {
 
 export const generateAiReview = async (payload: any): Promise<AiReview> => {
   const prevAnswer = JSON.stringify(payload)
-  const prompt = `
-  ---------
-  제가 OCR로 읽어들인 메뉴판에 대한 JSON 내용을 드릴겁니다. 이 내용에는 다양한 정보가 포함되어 있습니다.
-  당신의 작업은 이 JSON 메뉴판의 정보를 토대로
-  아래 양식에 맞게 내용을 채워서 JSON 데이터를 만드는 것입니다.
-  아래 데이터 형식 이외에 다른 응답은 절대 하지 않습니다.
-  
-  {
-    "recommendedMenu": "",
-    "cautionNote": "",
-    "menuHighlight": "",
-    "foreignerTip": "",
-    "overallImpression": ""
-  }
-  
-  ----
-  키 설명
-  "recommendedMenu": "가장 추천하고 싶은 메뉴와 그 이유",
-  "cautionNote": "주의해야 할 사항이나 알레르기 정보",
-  "menuHighlight": "메뉴의 특징이나 독특한 점",
-  "foreignerTip": "외국인 관광객을 위한 팁이나 조언",
-  "overallImpression": "메뉴판 전체에 대한 종합적인 평가나 인상"
-`
+  const currentLocale = get(locale) as Language
+  const prompt = aiReview[currentLocale] ?? aiReview['ko']
 
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
