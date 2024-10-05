@@ -89,8 +89,11 @@
 
   const {getAiReview} = imageStore
 
-  const getMenuInfo = async () => {
-    const result = await imgUrl2Text({imageUrl: imageList[0]})
+  const getMenuInfo = async (image: string) => {
+    if(!image){
+      return
+    }
+    const result = await imgUrl2Text({imageUrl: image})
     return await translate({result})
   }
 </script>
@@ -161,7 +164,7 @@
         {/each}
       </div>
       <div class="flex flex-col mt-6 gap-3">
-        {#await getMenuInfo()}
+        {#await getMenuInfo(imageList[0])}
           <!-- eslint-disable no-unused-vars -->
           {#each Array(5) as _}
             <FSkeleton />
