@@ -25,6 +25,8 @@
   import FImg from '../components/FImg.svelte'
   import {imgUrl2Text, translate} from '../requests/fetch/translate'
   import {imageStore} from '../store/image'
+    import { getRelationById } from '../requests/fetch/id-menu-relation'
+    import type { Relation } from '../requests/normalize/id-menu-relation'
 
   /**
    * TODO: 리팩토링이 빠를까 자살이 빠를까 생각해보기
@@ -32,17 +34,29 @@
   let id = parseQueryString($querystring ?? '').id
   let detailInfo: RestaurantDetailInfo
   let commonInfo: RestaurantCommonInfo
-  $: imageList = (data.find((item: any) => item[menukeyMap[$locale as Language]] === id)?.menu_images ?? []).map(
-    (image: string) =>
-      `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`,
-  )
+  let relation: Relation
 
-  const menukeyMap: Record<Language, string> = {
-    ko: 'ko_contentid',
-    en: 'eng_contentid',
-    zh: 'chs_contentid',
-    ja: 'jpn_contentid',
+  $: getRelation(id, $locale as Language)
+  $: imageList = (relation?.images ?? []).map((image: string) =>
+      `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`)
+  // $: imageList = (data.find((item: any) => item[menukeyMap[$locale as Language]] === id)?.menu_images ?? []).map(
+  //   (image: string) =>
+  //     `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`,
+  // )
+
+
+  const getRelation = async (id: string, language: Language) => {
+    getRelationById(id, language).then((data)=>{
+      relation = data as any
+    })
   }
+
+  // const menukeyMap: Record<Language, string> = {
+  //   ko: 'ko_contentid',
+  //   en: 'eng_contentid',
+  //   zh: 'chs_contentid',
+  //   ja: 'jpn_contentid',
+  // }
 
   onMount(async () => {
     const params = {
@@ -75,8 +89,11 @@
 
   const {getAiReview} = imageStore
 
-  const getMenuInfo = async () => {
-    const result = await imgUrl2Text({imageUrl: imageList[0]})
+  const getMenuInfo = async (image: string) => {
+    if(!image){
+      return
+    }
+    const result = await imgUrl2Text({imageUrl: image})
     return await translate({result})
   }
 </script>
@@ -147,7 +164,7 @@
         {/each}
       </div>
       <div class="flex flex-col mt-6 gap-3">
-        {#await getMenuInfo()}
+        {#await getMenuInfo(imageList[0])}
           <!-- eslint-disable no-unused-vars -->
           {#each Array(5) as _}
             <FSkeleton />
