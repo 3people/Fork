@@ -25,8 +25,8 @@
   import FImg from '../components/FImg.svelte'
   import {imgUrl2Text, translate} from '../requests/fetch/translate'
   import {imageStore} from '../store/image'
-    import { getRelationById } from '../requests/fetch/id-menu-relation'
-    import type { Relation } from '../requests/normalize/id-menu-relation'
+  import {getRelationById} from '../requests/fetch/id-menu-relation'
+  import type {Relation} from '../requests/normalize/id-menu-relation'
   import FKakaoMap from '../components/FKakaoMap.svelte'
 
   /**
@@ -38,16 +38,17 @@
   let relation: Relation
 
   $: getRelation(id, $locale as Language)
-  $: imageList = (relation?.images ?? []).map((image: string) =>
-      `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`)
+  $: imageList = (relation?.images ?? []).map(
+    (image: string) =>
+      `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`,
+  )
   // $: imageList = (data.find((item: any) => item[menukeyMap[$locale as Language]] === id)?.menu_images ?? []).map(
   //   (image: string) =>
   //     `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`,
   // )
 
-
   const getRelation = async (id: string, language: Language) => {
-    getRelationById(id, language).then((data)=>{
+    getRelationById(id, language).then((data) => {
       relation = data as any
     })
   }
@@ -91,11 +92,10 @@
   const {getAiReview} = imageStore
 
   const getMenuInfo = async (image: string) => {
-    if(!image){
-      return
+    if (image) {
+      const result = await imgUrl2Text({imageUrl: image})
+      return await translate({result})
     }
-    const result = await imgUrl2Text({imageUrl: image})
-    return await translate({result})
   }
 </script>
 
