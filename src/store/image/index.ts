@@ -29,7 +29,6 @@ export const createImageStore = () => {
     const result = await generateAiReview(get(translatedMenuStore))
     aiReviewStore.set(result)
     localStorage.setItem('aiReview', JSON.stringify(result))
-    console.log(result)
     return result
   }
 

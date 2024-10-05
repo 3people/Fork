@@ -56,6 +56,8 @@ export interface RestaurantCommonInfoRaw {
   telname: string
   title: string
   zipcode: string
+  mapx: string
+  mapy: string
 }
 
 export interface RestaurantCommonInfo {
@@ -75,6 +77,8 @@ export interface RestaurantCommonInfo {
   phoneNumberName?: string
   title?: string
   zipCode?: string
+  mapX?: number
+  mapY?: number
 }
 
 export const normalizeRestaurantDetailInfo = (
@@ -121,5 +125,7 @@ export const normalizeRestaurantCommonInfo = (
     phoneNumberName: item.telname,
     title: item.title,
     zipCode: item.zipcode,
+    mapX: parseFloat(item.mapx),
+    mapY: parseFloat(item.mapy),
   }
 }

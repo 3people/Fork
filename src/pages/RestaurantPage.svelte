@@ -25,6 +25,7 @@
   import FImg from '../components/FImg.svelte'
   import {imgUrl2Text, translate} from '../requests/fetch/translate'
   import {imageStore} from '../store/image'
+  import FKakaoMap from '../components/FKakaoMap.svelte'
 
   /**
    * TODO: 리팩토링이 빠를까 자살이 빠를까 생각해보기
@@ -32,7 +33,9 @@
   let id = parseQueryString($querystring ?? '').id
   let detailInfo: RestaurantDetailInfo
   let commonInfo: RestaurantCommonInfo
-  $: imageList = (data.find((item: any) => item[menukeyMap[$locale as Language]] === id)?.menu_images ?? []).map(
+  $: imageList = (
+    data.find((item: any) => item[menukeyMap[$locale as Language]] === id)?.menu_images ?? []
+  ).map(
     (image: string) =>
       `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`,
   )
@@ -81,7 +84,6 @@
   }
 </script>
 
-<!--{#if true}-->
 {#if commonInfo && detailInfo}
   <div class="w-full h-full flex flex-col">
     <FImg
@@ -121,7 +123,7 @@
       </div>
     </div>
     <FBar />
-    <div class="flex flex-col px-5 mt-7 w-full pb-12">
+    <div class="flex flex-col px-5 mt-7 w-full pb-2">
       <div class="flex items-center justify-between w-full">
         <div class="flex items-center">
           <ForkLogo />
@@ -186,6 +188,15 @@
           <!--  </div>-->
         {/await}
       </div>
+    </div>
+    <FBar class="my-7" />
+    <div class="flex flex-col pb-7">
+      <span class="text-lg font-bold px-5">위치</span>
+      {#if commonInfo?.mapX && commonInfo?.mapY}
+        <div class="w-full h-[12.5rem] mt-3">
+          <FKakaoMap class="w-full h-full" longitude={commonInfo.mapX} latitude={commonInfo.mapY} />
+        </div>
+      {/if}
     </div>
   </div>
 {/if}
