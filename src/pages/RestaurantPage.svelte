@@ -19,6 +19,7 @@
   import type {Language} from '../locale/types'
   import ForkLogo from '../assets/icons/ForkLogo.svelte'
   import Info from '../assets/icons/Info.svelte'
+  import {data} from '../requests/mock/menu'
   import FSkeleton from '../components/FSkeleton.svelte'
   import FMenu from '../components/FMenu.svelte'
   import FImg from '../components/FImg.svelte'
@@ -91,10 +92,11 @@
   const {getAiReview} = imageStore
 
   const getMenuInfo = async (image: string) => {
-    if (image) {
-      const result = await imgUrl2Text({imageUrl: image})
-      return await translate({result})
+    if (!image) {
+      return Promise.reject(null)
     }
+    const result = await imgUrl2Text({imageUrl: image})
+    return await translate({result})
   }
 </script>
 
