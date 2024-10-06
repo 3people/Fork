@@ -13,8 +13,8 @@
   const dispatch = createEventDispatcher()
   
   $: data = $restaurantQuery?.data
-  $: ({cat1, cat2, cat3} = data ?? {})
   $: category = $categoryQuery?.data
+  $: ({cat1, cat2, cat3} = data ?? {})
 
   $: restaurantQuery = createQuery({
     queryKey: ['restaurant', contentId, $locale],

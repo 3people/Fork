@@ -11,7 +11,7 @@ interface CategoryStringPayload {
 
 export const fetchCategoryString = async (payload: CategoryStringPayload) => {
   if(!payload.cat1 && !payload.cat2 && !payload.cat3){
-    return {}
+    return ''
   }
   const {
       os = 'ETC',
