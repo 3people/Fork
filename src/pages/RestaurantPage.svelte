@@ -59,10 +59,10 @@
     navigator.clipboard
       .writeText(textToCopy)
       .then(() => {
-        alert('텍스트가 클립보드에 복사되었습니다')
+        alert('텍스트가 클립보드에 복사되었습니다.')
       })
       .catch((err) => {
-        console.error('복사 실패', err)
+        console.error('복사에 실패했습니다.\n잠시 후 다시 시도해주세요.', err)
       })
   }
 
