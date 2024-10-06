@@ -52,7 +52,7 @@
   <div class="mt-12">
     <span class="font-bold text-lg px-5">{regionTitle}</span>
     <div class="overflow-hidden px-5" use:emblaCarouselSvelte>
-      <div class="flex mt-4 gap-3 w-[11.25rem]">
+      <div class="flex mt-4 gap-3">
         {#each randomRegionRestaurantMock.mock as item}
           <FRestaurant contentId={item.relation?.[$locale ?? '']} flow='vertical' on:click={onClickRestaurant} />
         {/each}
@@ -62,7 +62,7 @@
   <div class="mt-12">
     <span class="font-bold text-lg px-5">{$_('home.popular')}</span>
     <div class="overflow-hidden px-5" use:emblaCarouselSvelte>
-      <div class="flex mt-4 gap-3 w-[11.25rem]">
+      <div class="flex mt-4 gap-3">
         {#each restaurantMock as item}
         <FRestaurant contentId={item.relation?.[$locale ?? '']} flow='vertical' on:click={onClickRestaurant} />
         {/each}
