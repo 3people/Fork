@@ -5,21 +5,13 @@
   import Phone from '../assets/icons/Phone.svelte'
   import Watch from '../assets/icons/Watch.svelte'
   import Calendar from '../assets/icons/Calendar.svelte'
-  import {onMount} from 'svelte'
-  import {
-    fetchRestaurantCommonInfo,
-    fetchRestaurantDetailInfo,
-  } from '../requests/fetch/restaurant-info'
-  import type {
-    RestaurantCommonInfo,
-    RestaurantDetailInfo,
-  } from '../requests/normalize/restaurant-info'
+  import {fetchRestaurant} from '../requests/fetch/restaurant'
+  import {fetchCategoryString} from '../requests/fetch/category-string'
   import FBar from '../components/FBar.svelte'
   import {locale} from 'svelte-i18n'
   import type {Language} from '../locale/types'
   import ForkLogo from '../assets/icons/ForkLogo.svelte'
   import Info from '../assets/icons/Info.svelte'
-  import {data} from '../requests/mock/menu'
   import FSkeleton from '../components/FSkeleton.svelte'
   import FMenu from '../components/FMenu.svelte'
   import FImg from '../components/FImg.svelte'
@@ -28,24 +20,33 @@
   import {getRelationById} from '../requests/fetch/id-menu-relation'
   import type {Relation} from '../requests/normalize/id-menu-relation'
   import FKakaoMap from '../components/FKakaoMap.svelte'
+  import { createQuery } from '@tanstack/svelte-query'
 
   /**
    * TODO: 리팩토링이 빠를까 자살이 빠를까 생각해보기
    */
-  let id = parseQueryString($querystring ?? '').id
-  let detailInfo: RestaurantDetailInfo
-  let commonInfo: RestaurantCommonInfo
+  let contentId = parseQueryString($querystring ?? '').id
   let relation: Relation
 
-  $: getRelation(id, $locale as Language)
+  $: getRelation(contentId, $locale as Language)
   $: imageList = (relation?.images ?? []).map(
     (image: string) =>
       `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`,
   )
-  // $: imageList = (data.find((item: any) => item[menukeyMap[$locale as Language]] === id)?.menu_images ?? []).map(
-  //   (image: string) =>
-  //     `https://img1.kakaocdn.net/cthumb/local/R736x0.q50/?fname=${encodeURIComponent(image)}`,
-  // )
+
+  $: restaurant = $query?.data ?? {}
+  $: category = $categoryQuery?.data
+  $: ({cat1, cat2, cat3} = restaurant ?? {})
+  
+  $: query = createQuery({
+    queryKey: ['restaurant', contentId, $locale],
+    queryFn: () => fetchRestaurant({contentId, locale: $locale as Language}),
+  })
+  $: categoryQuery = createQuery({
+    queryKey: ['category', {cat1, cat2, cat3}],
+    queryFn: () => fetchCategoryString({cat1, cat2, cat3}),
+  })
+
 
   const getRelation = async (id: string, language: Language) => {
     getRelationById(id, language).then((data) => {
@@ -53,27 +54,8 @@
     })
   }
 
-  // const menukeyMap: Record<Language, string> = {
-  //   ko: 'ko_contentid',
-  //   en: 'eng_contentid',
-  //   zh: 'chs_contentid',
-  //   ja: 'jpn_contentid',
-  // }
-
-  onMount(async () => {
-    const params = {
-      contentId: id,
-      locale: $locale as Language,
-      contentTypeId: $locale === 'ko' ? '39' : '82',
-    }
-    const result = await fetchRestaurantDetailInfo(params)
-    const result2 = await fetchRestaurantCommonInfo(params)
-    detailInfo = result
-    commonInfo = result2
-  })
-
   const onClickCopy = () => {
-    let textToCopy = commonInfo.firstAddress ?? ''
+    let textToCopy = restaurant.firstAddress ?? ''
     navigator.clipboard
       .writeText(textToCopy)
       .then(() => {
@@ -100,21 +82,20 @@
   }
 </script>
 
-{#if commonInfo && detailInfo}
+{#if restaurant}
   <div class="w-full h-full flex flex-col">
     <FImg
-      src={commonInfo.firstImage ?? ''}
+      src={restaurant.firstImage ?? ''}
       class="w-full h-[22.5rem] object-cover"
-      alt={commonInfo.title}
+      alt={restaurant.title}
     />
     <div class="flex flex-col mt-6 mb-14 px-5">
-      <!--      TODO: 분류-->
-      <!--      <span class="text-brand-point font-bold text-xs mb-2">{commonInfo.title}</span>-->
-      <span class="font-bold text-xl mb-4">{commonInfo.title}</span>
+      <span class="text-brand-point font-bold text-xs mb-2">{category}</span>
+      <span class="font-bold text-xl mb-4">{restaurant.title}</span>
       <div class="flex flex-col gap-2">
         <div class="flex items-start">
           <Location />
-          <span class="basis-60 ml-2 text-black-secondary text-sm">{commonInfo.firstAddress}</span>
+          <span class="basis-60 ml-2 text-black-secondary text-sm">{restaurant.firstAddress}</span>
           <button
             class="flex-shrink-0 text-brand-blue text-sm whitespace-nowrap ml-1"
             on:click={onClickCopy}
@@ -124,17 +105,17 @@
         </div>
         <div class="flex items-center">
           <Phone />
-          <span class="ml-2 text-black-secondary text-sm">{commonInfo.phoneNumber}</span>
+          <span class="ml-2 text-black-secondary text-sm">{restaurant.phoneNumber}</span>
         </div>
         <div class="flex items-start">
           <Watch class="mr-2 flex-shrink-0" />
           <div class="flex flex-col">
-            <span class="text-black-secondary text-sm">{@html detailInfo.openTime}</span>
+            <span class="text-black-secondary text-sm">{@html restaurant.openTime}</span>
           </div>
         </div>
         <div class="flex gap-2 items-center">
           <Calendar />
-          <span class="text-black-secondary text-sm">{detailInfo.dayOff}</span>
+          <span class="text-black-secondary text-sm">{restaurant.dayOff}</span>
         </div>
       </div>
     </div>
@@ -208,9 +189,9 @@
     <FBar class="my-7" />
     <div class="flex flex-col pb-7">
       <span class="text-lg font-bold px-5">위치</span>
-      {#if commonInfo?.mapX && commonInfo?.mapY}
+      {#if restaurant?.mapX && restaurant?.mapY}
         <div class="w-full h-[12.5rem] mt-3">
-          <FKakaoMap class="w-full h-full" longitude={commonInfo.mapX} latitude={commonInfo.mapY} />
+          <FKakaoMap class="w-full h-full" longitude={restaurant.mapX} latitude={restaurant.mapY} />
         </div>
       {/if}
     </div>
