@@ -52,8 +52,8 @@
     showAll = !showAll
   }
 
-  const onClickInfo = ({detail: info}: CustomEvent) => {
-    push(`/restaurant?id=${info.contentId}`)
+  const onClickInfo = (event: CustomEvent) => {
+    push(`/restaurant?id=${event?.detail}`)
   }
 </script>
 
