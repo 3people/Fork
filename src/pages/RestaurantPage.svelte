@@ -59,10 +59,10 @@
     navigator.clipboard
       .writeText(textToCopy)
       .then(() => {
-        alert('텍스트가 클립보드에 복사되었습니다')
+        alert('텍스트가 클립보드에 복사되었습니다.')
       })
       .catch((err) => {
-        console.error('복사 실패', err)
+        console.error('복사에 실패했습니다.\n잠시 후 다시 시도해주세요.', err)
       })
   }
 
@@ -95,8 +95,8 @@
       <div class="flex flex-col gap-2">
         {#if restaurant.firstAddress}
           <div class="flex items-start">
-            <Location />
-            <span class="ml-2 text-black-secondary text-sm">{restaurant.firstAddress}</span>
+            <Location class="mr-2 flex-shrink-0" />
+            <span class="text-black-secondary text-sm">{restaurant.firstAddress}</span>
             <button
               class="flex-shrink-0 text-brand-blue text-sm whitespace-nowrap ml-1"
               on:click={onClickCopy}
@@ -107,8 +107,8 @@
         {/if}
         {#if restaurant.phoneNumber}
           <div class="flex items-center">
-            <Phone />
-            <span class="ml-2 text-black-secondary text-sm">{restaurant.phoneNumber}</span>
+            <Phone class="mr-2 flex-shrink-0" />
+            <span class="text-black-secondary text-sm">{restaurant.phoneNumber}</span>
           </div>
         {/if}
         {#if restaurant.openTime}

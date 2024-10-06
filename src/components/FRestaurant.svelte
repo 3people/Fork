@@ -32,7 +32,7 @@
 </script>
   
 <button
-  class="flex gap-4 flex-[0_0_100%] overflow-hidden {flow === 'vertical' ? 'flex-col' : ''}"
+  class="flex gap-4 flex-[0_0_100%] overflow-hidden {flow === 'vertical' ? 'flex-col max-w-[11.25rem]' : ''}"
   on:click={onClick}
 >
   <FImg
