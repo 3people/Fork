@@ -22,7 +22,7 @@
 
 <button
   class="rounded-lg min-w-[17.5rem] w-[17.5rem] h-[27rem] text-white bg-cover bg-no-repeat bg-center"
-  style={`background-image: url(${image})`}
+  style={`background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${image});background-size:cover`}
   on:click={onClickCard}
 >
   <div class="p-4 flex flex-col w-full h-full justify-between text-left">

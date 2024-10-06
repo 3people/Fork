@@ -9,32 +9,14 @@
   import {foodData} from '../requests/mock/food-data'
   import FSkeleton from '../components/FSkeleton.svelte'
   import {_, locale} from 'svelte-i18n'
-  import {getHomeFoodMock} from '../requests/mock/home-mock'
-  import {descriptionKey, nameKey} from './food/key-map'
-  import {fetchFoodImageSearch} from '../requests/fetch/search-food-image'
-
-  let searchedImage: string | undefined
+  import FFood from '../components/FFood.svelte'
 
   $: keyword = parseQueryString($querystring ?? '')?.keyword
-  $: foodInfo = foodData.find((food) => food.name === keyword)
-
-  $: mockData = getHomeFoodMock($locale as Language)
-  $: mockImage = mockData.find((data) => String(data.name) === keyword)?.image ?? ''
-  $: image = mockImage || searchedImage || ''
-  $: searchImage(keyword ?? '')
-
-  $: name = foodInfo?.[nameKey[$locale as Language]]
-  $: description = foodInfo?.[descriptionKey[$locale as Language]]
+  $: foodList = foodData.filter((food) => food.name.includes(keyword)).slice(0, 3)
 
   const getSearchResult = async (keyword: string, language?: Language | null | string) => {
     const result = await fetchKeywordSearch({keyword, locale: language as Language, row: '20'})
     return result ?? []
-  }
-
-  const searchImage = async (name: string) => {
-    searchedImage = await fetchFoodImageSearch({
-      keyword: name,
-    })
   }
 
   const onEnter = ({detail: value}: CustomEvent) => {
@@ -46,6 +28,10 @@
       ? push(`/restaurant?id=${info.contentId}`)
       : push(`/food?id=${info.id}`)
   }
+
+  const onClickFood = (event: CustomEvent) => {
+    push(`/food?id=${event?.detail}`)
+  }
 </script>
 
 <div class="w-full px-4 mt-4 mb-16">
@@ -53,19 +39,14 @@
   <div class="mt-7">
     <span class="font-bold text-lg block mt-4 mb-4">'{keyword}' {$_(`search.foodInfo`)}</span>
   </div>
-  {#if name}
-    <FInfo
-      type="food"
-      item={{
-        title: name,
-        firstImage: image,
-        description: description,
-        category: foodInfo?.category,
-        id: foodInfo?.id,
-      }}
-      on:click={onClickInfo}
+  <div class="flex flex-col gap-3">
+  {#each foodList as food}
+    <FFood
+      {food}
+      on:click={onClickFood}
     />
-  {/if}
+  {/each}
+  </div>
   <div class="flex flex-col mt-14">
     <span class="font-bold text-lg mb-4">'{keyword}' {$_(`search.restaurant`)}</span>
     {#await getSearchResult(keyword, $locale)}
