@@ -10,34 +10,6 @@ export default {
   },
   home: {
     popular: 'Popular restaurants right now',
-    info: {
-      2642538: {
-        title: 'Eun&Jeong Myeongdong Dakgalbi (은앤정명동닭갈비)',
-        openTime: '11:00-22:00',
-        firstMenu: 'Dakgalbi (Spicy stir-fried chicken)',
-      },
-      2653655: {
-        title: 'Daenamu Wine Samgyeopsal (대나무와인삼겹살)',
-        openTime: '11:00-22:00 (Last Order 20:30)',
-        firstMenu: 'Wine Marinated Grilled Pork Belly',
-      },
-      2653639: {
-        title: 'Hamcho Ganjanggejang (함초간장게장)',
-        openTime: '11:30-22:00',
-        firstMenu: 'Ganjang gejang (Soy sauce marinated crab)',
-      },
-      2653722: {
-        title: 'Brown Chicken (브라운치킨)',
-        openTime: '13:00-05:00 (Last Order 04:00)',
-        firstMenu: 'Fried Chicken',
-      },
-      2654056: {
-        title: 'Jjukkumiwa Maeungalbijjim(쭈꾸미와매운갈비찜)',
-        openTime:
-          'Weekdays 10:00-22:00(Break Time 15:00-17:00 / Last Order 21:30) / Weekend 10:00-21:00(Break Time 15:00-17:00)',
-        firstMenu: 'Braised Short Rib Set Menu',
-      },
-    },
     translate: {
       first: 'Menu',
       second: 'translate',
@@ -76,5 +48,9 @@ export default {
     allergy: 'Allergy-causing ingredients',
     additionalInfo: 'Additional information',
     viewDetails: 'View details',
+    caution: 'Allergenic ingredients may vary depending on the recipe. Be sure to contact the store for accurate information.',
+    fork: 'fork',
+    update: 'Update',
+    guide: 'Guide',
   },
 }

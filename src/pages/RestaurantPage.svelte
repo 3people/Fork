@@ -8,7 +8,7 @@
   import {fetchRestaurant} from '../requests/fetch/restaurant'
   import {fetchCategoryString} from '../requests/fetch/category-string'
   import FBar from '../components/FBar.svelte'
-  import {locale} from 'svelte-i18n'
+  import {_, locale} from 'svelte-i18n'
   import type {Language} from '../locale/types'
   import ForkLogo from '../assets/icons/ForkLogo.svelte'
   import Info from '../assets/icons/Info.svelte'
@@ -106,9 +106,9 @@
           </div>
         {/if}
         {#if restaurant.phoneNumber}
-          <div class="flex items-center">
+          <div class="flex items-start">
             <Phone class="mr-2 flex-shrink-0" />
-            <span class="text-black-secondary text-sm">{restaurant.phoneNumber}</span>
+            <span class="text-black-secondary text-sm">{@html restaurant.phoneNumber}</span>
           </div>
         {/if}
         {#if restaurant.openTime}
@@ -132,16 +132,15 @@
       <div class="flex items-center justify-between w-full">
         <div class="flex items-center">
           <ForkLogo />
-          <span class="font-santokki text-brand-point text-lg leading-6">포크</span>
-          <span class="font-bold text-lg">&nbsp;메뉴</span>
+          <span class="font-santokki text-brand-point text-lg leading-6">{$_('menu.fork')}</span>
+          <span class="font-bold text-lg">&nbsp;{$_('menu.text')}</span>
         </div>
-        <span class="text-[0.5rem] text-black-tertiary">업데이트 {getToday()}</span>
+        <span class="text-[0.5rem] text-black-tertiary">{$_('menu.update')} {getToday()}</span>
       </div>
       <div class="mt-3 flex gap-1 w-full">
         <Info class="flex-shrink-0" />
         <span class="text-xs text-black-tertiary">
-          알레르기 유발 성분은 조리법에 따라 상이할 수 있습니다. 정확한 정보는 반드시 가게에
-          문의하시기 바랍니다.
+          {$_('menu.caution')}
         </span>
       </div>
       <div class="mt-3 flex gap-1">
@@ -167,8 +166,8 @@
             <div class="bg-[#ff4a221a] rounded-lg p-3">
               <div class="flex items-center">
                 <ForkLogo />
-                <span class="font-santokki text-brand-point text-lg leading-6">포크</span>
-                <span class="font-bold text-lg">&nbsp;AI 가이드</span>
+                <span class="font-santokki text-brand-point text-lg leading-6">{$_('menu.fork')}</span>
+                <span class="font-bold text-lg">&nbsp;AI {$_('menu.guide')}</span>
               </div>
               <p class="text-black-tertiary text-xs">
                 {Object.values(review).filter(Boolean).join(' ')}
