@@ -48,5 +48,9 @@ export default {
     allergy: 'アレルギーを引き起こす成分',
     additionalInfo: '额外信息',
     viewDetails: '查看详情',
+    caution: '過敏成分可能因配方而異。請務必聯繫商店以獲取準確資訊。',
+    fork: 'fork',
+    update: '更新',
+    guide: '指導',
   },
 }

@@ -48,5 +48,9 @@ export default {
     allergy: 'アレルギーを引き起こす成分',
     additionalInfo: '追加情報',
     viewDetails: '詳細を見る',
+    caution: 'アレルギー誘発成分はレシピによって異なります。正確な情報は必ずお店にお問い合わせください。',
+    fork: 'fork',
+    update: 'アップデート',
+    guide: 'ガイド',
   },
 }

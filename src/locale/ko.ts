@@ -48,5 +48,9 @@ export default {
     allergy: '알레르기 유발 성분',
     additionalInfo: '추가 정보',
     viewDetails: '자세히 보기',
+    caution: '알레르기 유발 성분은 조리법에 따라 상이할 수 있습니다. 정확한 정보는 반드시 가게에 문의하시기 바랍니다.',
+    fork: '포크',
+    update: '업데이트',
+    guide: '가이드',
   },
 }

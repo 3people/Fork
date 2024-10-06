@@ -48,5 +48,9 @@ export default {
     allergy: 'Allergy-causing ingredients',
     additionalInfo: 'Additional information',
     viewDetails: 'View details',
+    caution: 'Allergenic ingredients may vary depending on the recipe. Be sure to contact the store for accurate information.',
+    fork: 'fork',
+    update: 'Update',
+    guide: 'Guide',
   },
 }
