@@ -2,7 +2,7 @@
   import {push, querystring} from 'svelte-spa-router'
   import {parseQueryString} from '../../utils/url'
   import FBar from '../../components/FBar.svelte'
-  import FInfo from '../../components/FInfo.svelte'
+  import FRestaurant from '../../components/FRestaurant.svelte'
   import FButton from '../../components/FButton.svelte'
   import {_, locale} from 'svelte-i18n'
   import {fetchKeywordSearch} from '../../requests/fetch/search'
@@ -90,7 +90,7 @@
         {/each}
       {:then restaurants}
         {#each showAll ? restaurants : restaurants.slice(0, 5) as item}
-          <FInfo {item} on:click={onClickInfo} />
+          <FRestaurant contentId={item.contentId} on:click={onClickInfo} />
         {/each}
       {/await}
     </div>
