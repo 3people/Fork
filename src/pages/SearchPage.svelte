@@ -14,17 +14,16 @@
   import {fetchFoodImageSearch} from '../requests/fetch/search-food-image'
 
   let searchedImage: string | undefined
+  let _locale: Language
 
   $: keyword = parseQueryString($querystring ?? '')?.keyword
-  $: foodInfo = foodData.find((food) => food.name === keyword)
+  $: foodList = foodData.filter((food) => food.name.includes(keyword)).slice(0, 3)
 
   $: mockData = getHomeFoodMock($locale as Language)
   $: mockImage = mockData.find((data) => String(data.name) === keyword)?.image ?? ''
   $: image = mockImage || searchedImage || ''
   $: searchImage(keyword ?? '')
-
-  $: name = foodInfo?.[nameKey[$locale as Language]]
-  $: description = foodInfo?.[descriptionKey[$locale as Language]]
+  $: _locale = $locale as Language
 
   const getSearchResult = async (keyword: string, language?: Language | null | string) => {
     const result = await fetchKeywordSearch({keyword, locale: language as Language, row: '20'})
@@ -53,19 +52,23 @@
   <div class="mt-7">
     <span class="font-bold text-lg block mt-4 mb-4">'{keyword}' {$_(`search.foodInfo`)}</span>
   </div>
-  {#if name}
+  <div class="flex flex-col gap-3">
+  {#each foodList as food}
+    {@const name = food[nameKey[_locale]]}
+    {@const description = food[descriptionKey[_locale]]}
     <FInfo
       type="food"
       item={{
         title: name,
         firstImage: image,
         description: description,
-        category: foodInfo?.category,
-        id: foodInfo?.id,
+        category: food?.category,
+        id: food?.id,
       }}
       on:click={onClickInfo}
     />
-  {/if}
+  {/each}
+  </div>
   <div class="flex flex-col mt-14">
     <span class="font-bold text-lg mb-4">'{keyword}' {$_(`search.restaurant`)}</span>
     {#await getSearchResult(keyword, $locale)}
