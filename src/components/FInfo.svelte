@@ -7,6 +7,7 @@
     fetchRestaurantCommonInfo,
     fetchRestaurantDetailInfo,
   } from '../requests/fetch/restaurant-info'
+  import {fetchCategoryString} from '../requests/fetch/category-string'
   import type {
     RestaurantCommonInfo,
     RestaurantDetailInfo,
@@ -22,12 +23,22 @@
   let restaurantInfoByLocale: {
     [key: string]: RestaurantCommonInfo & RestaurantDetailInfo
   }
+  let category
 
   $: restaurantInfoByLocale = {
     ko: {},
     en: {},
     ja: {},
     zh: {},
+  }
+  $: restaurantInfo = restaurantInfoByLocale[$locale ?? 'ko']
+  $: getCategory({cat1: restaurantInfo.cat1, cat2: restaurantInfo.cat2, cat3: restaurantInfo.cat3})
+
+  const getCategory = async ({cat1, cat2, cat3}) => {
+    if(!cat1 && !cat2 && !cat3){
+      return
+    }
+    category = await fetchCategoryString({cat1, cat2, cat3})
   }
 
   const fetchRestaurantByLocale = async () => {
@@ -38,7 +49,7 @@
     })
 
     const results = await Promise.allSettled(promises)
-
+  
     results.forEach((result) => {
       if (result.status === 'fulfilled' && result.value.data) {
         restaurantInfoByLocale[result.value.locale as Language] = result.value.data
@@ -81,15 +92,15 @@
     alt={item.title}
   />
   {#if type === 'restaurant'}
-    <div class="flex flex-col gap-1 w-full text-left overflow-hidden">
-      <span class="text-brand-point font-bold text-[0.625rem]">식당</span>
-      {#if ['/search', '/food'].includes($location)}
-        <span class="font-bold text-base truncate">{item.title}</span>
-        <span class="text-xs text-black-tertiary truncate">{@html item.openTime}</span>
-        <span class="text-xs text-black-secondary">{item.firstMenu}</span>
-      {:else}
-        <!--        TODO: skeleton UI-->
-        {@const restaurantInfo = restaurantInfoByLocale[$locale ?? 'ko']}
+  <div class="flex flex-col gap-1 w-full text-left overflow-hidden">
+    {#if ['/search', '/food'].includes($location)}
+    <span class="text-brand-point font-bold text-[0.625rem]">식당</span>
+    <span class="font-bold text-base truncate">{item.title}</span>
+    <span class="text-xs text-black-tertiary truncate">{@html item.openTime}</span>
+    <span class="text-xs text-black-secondary">{item.firstMenu}</span>
+    {:else}
+    <!--        TODO: skeleton UI-->
+        <span class="text-brand-point font-bold text-[0.625rem]">{category ?? ''}</span>
         <span class="font-bold text-base">{restaurantInfo.title ?? ''}</span>
         <span class="text-xs text-black-tertiary truncate">
           {@html restaurantInfo.openTime ?? ''}
