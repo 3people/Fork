@@ -58,6 +58,9 @@ export interface RestaurantCommonInfoRaw {
   zipcode: string
   mapx: string
   mapy: string
+  cat1: string
+  cat2: string
+  cat3: string
 }
 
 export interface RestaurantCommonInfo {
@@ -79,6 +82,9 @@ export interface RestaurantCommonInfo {
   zipCode?: string
   mapX?: number
   mapY?: number
+  cat1?: string
+  cat2?: string
+  cat3?: string
 }
 
 export const normalizeRestaurantDetailInfo = (
@@ -127,5 +133,8 @@ export const normalizeRestaurantCommonInfo = (
     zipCode: item.zipcode,
     mapX: parseFloat(item.mapx),
     mapY: parseFloat(item.mapy),
+    cat1: item.cat1,
+    cat2: item.cat2,
+    cat3: item.cat3,
   }
 }

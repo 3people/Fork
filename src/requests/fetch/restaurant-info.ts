@@ -20,6 +20,7 @@ export interface RestaurantCommonInfoPayload {
   overviewInfo?: string
   serviceKey?: string
   mapInfo?: string
+  categoryInfo?: string
 }
 
 export interface RestaurantDetailInfoPayload {
@@ -64,6 +65,7 @@ export const fetchRestaurantCommonInfo = async (payload: RestaurantCommonInfoPay
     addressInfo = 'Y',
     overviewInfo = 'Y',
     mapInfo = 'Y',
+    categoryInfo = 'Y',
     serviceKey = import.meta.env.VITE_GG_KEY,
   } = payload
 
@@ -78,6 +80,7 @@ export const fetchRestaurantCommonInfo = async (payload: RestaurantCommonInfoPay
     addrinfoYN: addressInfo,
     overviewYN: overviewInfo,
     mapinfoYN: mapInfo,
+    catcodeYN: categoryInfo,
     serviceKey,
   }
 
