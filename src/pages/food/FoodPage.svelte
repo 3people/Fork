@@ -30,7 +30,7 @@
   const queryFoodId = parseQueryString($querystring ?? '').id
   const food = foodData.find((data) => String(data.id) === queryFoodId)
 
-  const getSearchResult = async (locale?: string | null) => {
+  const getSearchResult = async (queryFoodId: string, locale?: string | null) => {
     if(!locale){
       return []
     }
@@ -83,7 +83,7 @@
       '{name}' {$_(`food.popular`)}
     </span>
     <div class="mt-4 flex flex-col gap-3">
-      {#await getSearchResult($locale)}
+      {#await getSearchResult(queryFoodId, $locale)}
         <!-- eslint-disable no-unused-vars -->
         {#each Array(5) as _}
           <FSkeleton />
