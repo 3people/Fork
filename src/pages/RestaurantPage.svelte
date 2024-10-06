@@ -106,9 +106,9 @@
           </div>
         {/if}
         {#if restaurant.phoneNumber}
-          <div class="flex items-center">
+          <div class="flex items-start">
             <Phone class="mr-2 flex-shrink-0" />
-            <span class="text-black-secondary text-sm">{restaurant.phoneNumber}</span>
+            <span class="text-black-secondary text-sm">{@html restaurant.phoneNumber}</span>
           </div>
         {/if}
         {#if restaurant.openTime}
