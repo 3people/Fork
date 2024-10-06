@@ -43,7 +43,7 @@
     queryFn: () => fetchRestaurant({contentId, locale: $locale as Language}),
   })
   $: categoryQuery = createQuery({
-    queryKey: ['category', cat1, cat2, cat3],
+    queryKey: ['category', {cat1, cat2, cat3}],
     queryFn: () => fetchCategoryString({cat1, cat2, cat3}),
   })
 
