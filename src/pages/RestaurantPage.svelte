@@ -95,8 +95,8 @@
       <div class="flex flex-col gap-2">
         {#if restaurant.firstAddress}
           <div class="flex items-start">
-            <Location />
-            <span class="ml-2 text-black-secondary text-sm">{restaurant.firstAddress}</span>
+            <Location class="mr-2 flex-shrink-0" />
+            <span class="text-black-secondary text-sm">{restaurant.firstAddress}</span>
             <button
               class="flex-shrink-0 text-brand-blue text-sm whitespace-nowrap ml-1"
               on:click={onClickCopy}
@@ -107,8 +107,8 @@
         {/if}
         {#if restaurant.phoneNumber}
           <div class="flex items-center">
-            <Phone />
-            <span class="ml-2 text-black-secondary text-sm">{restaurant.phoneNumber}</span>
+            <Phone class="mr-2 flex-shrink-0" />
+            <span class="text-black-secondary text-sm">{restaurant.phoneNumber}</span>
           </div>
         {/if}
         {#if restaurant.openTime}
