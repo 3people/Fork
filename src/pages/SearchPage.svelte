@@ -9,31 +9,14 @@
   import {foodData} from '../requests/mock/food-data'
   import FSkeleton from '../components/FSkeleton.svelte'
   import {_, locale} from 'svelte-i18n'
-  import {getHomeFoodMock} from '../requests/mock/home-mock'
-  import {descriptionKey, nameKey} from './food/key-map'
-  import {fetchFoodImageSearch} from '../requests/fetch/search-food-image'
-
-  let searchedImage: string | undefined
-  let _locale: Language
+  import FFood from '../components/FFood.svelte'
 
   $: keyword = parseQueryString($querystring ?? '')?.keyword
   $: foodList = foodData.filter((food) => food.name.includes(keyword)).slice(0, 3)
 
-  $: mockData = getHomeFoodMock($locale as Language)
-  $: mockImage = mockData.find((data) => String(data.name) === keyword)?.image ?? ''
-  $: image = mockImage || searchedImage || ''
-  $: searchImage(keyword ?? '')
-  $: _locale = $locale as Language
-
   const getSearchResult = async (keyword: string, language?: Language | null | string) => {
     const result = await fetchKeywordSearch({keyword, locale: language as Language, row: '20'})
     return result ?? []
-  }
-
-  const searchImage = async (name: string) => {
-    searchedImage = await fetchFoodImageSearch({
-      keyword: name,
-    })
   }
 
   const onEnter = ({detail: value}: CustomEvent) => {
@@ -45,6 +28,10 @@
       ? push(`/restaurant?id=${info.contentId}`)
       : push(`/food?id=${info.id}`)
   }
+
+  const onClickFood = (event: CustomEvent) => {
+    push(`/food?id=${event?.detail}`)
+  }
 </script>
 
 <div class="w-full px-4 mt-4 mb-16">
@@ -54,18 +41,9 @@
   </div>
   <div class="flex flex-col gap-3">
   {#each foodList as food}
-    {@const name = food[nameKey[_locale]]}
-    {@const description = food[descriptionKey[_locale]]}
-    <FInfo
-      type="food"
-      item={{
-        title: name,
-        firstImage: image,
-        description: description,
-        category: food?.category,
-        id: food?.id,
-      }}
-      on:click={onClickInfo}
+    <FFood
+      {food}
+      on:click={onClickFood}
     />
   {/each}
   </div>
