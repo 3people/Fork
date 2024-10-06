@@ -90,13 +90,13 @@
       alt={restaurant.title}
     />
     <div class="flex flex-col mt-6 mb-14 px-5">
-      <span class="text-brand-point font-bold text-xs mb-2">{category}</span>
-      <span class="font-bold text-xl mb-4">{restaurant.title}</span>
+      <span class="text-brand-point font-bold text-xs mb-2">{category ?? ''}</span>
+      <span class="font-bold text-xl mb-4">{restaurant.title ?? ''}</span>
       <div class="flex flex-col gap-2">
         {#if restaurant.firstAddress}
           <div class="flex items-start">
             <Location />
-            <span class="basis-60 ml-2 text-black-secondary text-sm">{restaurant.firstAddress}</span>
+            <span class="ml-2 text-black-secondary text-sm">{restaurant.firstAddress}</span>
             <button
               class="flex-shrink-0 text-brand-blue text-sm whitespace-nowrap ml-1"
               on:click={onClickCopy}
