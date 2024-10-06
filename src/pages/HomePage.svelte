@@ -4,7 +4,7 @@
   import {getHomeFoodMock} from '../requests/mock/home-mock'
   import {push} from 'svelte-spa-router'
   import FSearchInput from '../components/FSearchInput.svelte'
-  import FInfo from '../components/FInfo.svelte'
+  import FRestaurant from '../components/FRestaurant.svelte'
   import {_, locale} from 'svelte-i18n'
   import {restaurantMock} from '../requests/mock/restaurant'
   import {getRandomRegionRestaurantMock} from '../requests/mock/region-restaurant'
@@ -29,12 +29,12 @@
   $: randomRegionRestaurantMock = getRandomRegionRestaurantMock()
   $: regionTitle = randomRegionRestaurantMock.title[$locale as Language]
 
-  const onClickInfo = ({detail: restaurantInfo}: CustomEvent) => {
-    push(`/restaurant?id=${restaurantInfo.contentId}`)
-  }
-
   const onRouteTranslate = () => {
     push('/translate')
+  }
+
+  const onClickRestaurant = (event: CustomEvent) => {
+    push(`/restaurant?id=${event?.detail}`)
   }
 </script>
 
@@ -54,7 +54,7 @@
     <div class="overflow-hidden px-5" use:emblaCarouselSvelte>
       <div class="flex mt-4 gap-3 w-[11.25rem]">
         {#each randomRegionRestaurantMock.mock as item}
-          <FInfo {item} flow="vertical" on:click={onClickInfo} />
+          <FRestaurant contentId={item.relation?.[$locale ?? '']} flow='vertical' on:click={onClickRestaurant} />
         {/each}
       </div>
     </div>
@@ -64,7 +64,7 @@
     <div class="overflow-hidden px-5" use:emblaCarouselSvelte>
       <div class="flex mt-4 gap-3 w-[11.25rem]">
         {#each restaurantMock as item}
-          <FInfo {item} flow="vertical" on:click={onClickInfo} />
+        <FRestaurant contentId={item.relation?.[$locale ?? '']} flow='vertical' on:click={onClickRestaurant} />
         {/each}
       </div>
     </div>
