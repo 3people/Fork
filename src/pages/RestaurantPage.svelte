@@ -93,30 +93,38 @@
       <span class="text-brand-point font-bold text-xs mb-2">{category}</span>
       <span class="font-bold text-xl mb-4">{restaurant.title}</span>
       <div class="flex flex-col gap-2">
-        <div class="flex items-start">
-          <Location />
-          <span class="basis-60 ml-2 text-black-secondary text-sm">{restaurant.firstAddress}</span>
-          <button
-            class="flex-shrink-0 text-brand-blue text-sm whitespace-nowrap ml-1"
-            on:click={onClickCopy}
-          >
-            복사
-          </button>
-        </div>
-        <div class="flex items-center">
-          <Phone />
-          <span class="ml-2 text-black-secondary text-sm">{restaurant.phoneNumber}</span>
-        </div>
-        <div class="flex items-start">
-          <Watch class="mr-2 flex-shrink-0" />
-          <div class="flex flex-col">
-            <span class="text-black-secondary text-sm">{@html restaurant.openTime}</span>
+        {#if restaurant.firstAddress}
+          <div class="flex items-start">
+            <Location />
+            <span class="basis-60 ml-2 text-black-secondary text-sm">{restaurant.firstAddress}</span>
+            <button
+              class="flex-shrink-0 text-brand-blue text-sm whitespace-nowrap ml-1"
+              on:click={onClickCopy}
+            >
+              복사
+            </button>
           </div>
-        </div>
-        <div class="flex gap-2 items-center">
-          <Calendar />
-          <span class="text-black-secondary text-sm">{restaurant.dayOff}</span>
-        </div>
+        {/if}
+        {#if restaurant.phoneNumber}
+          <div class="flex items-center">
+            <Phone />
+            <span class="ml-2 text-black-secondary text-sm">{restaurant.phoneNumber}</span>
+          </div>
+        {/if}
+        {#if restaurant.openTime}
+          <div class="flex items-start">
+            <Watch class="mr-2 flex-shrink-0" />
+            <div class="flex flex-col">
+              <span class="text-black-secondary text-sm">{@html restaurant.openTime}</span>
+            </div>
+          </div>
+        {/if}
+        {#if restaurant.dayOff}
+          <div class="flex gap-2 items-center">
+            <Calendar />
+            <span class="text-black-secondary text-sm">{restaurant.dayOff}</span>
+          </div>
+        {/if}
       </div>
     </div>
     <FBar />
